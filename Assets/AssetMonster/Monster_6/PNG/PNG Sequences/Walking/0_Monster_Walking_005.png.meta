@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      0_Monster_Walking_005_0: 2062003990541115770
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

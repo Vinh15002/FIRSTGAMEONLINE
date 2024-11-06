@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      0_Monster_Fly_013_0: 1954960165887854294
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
