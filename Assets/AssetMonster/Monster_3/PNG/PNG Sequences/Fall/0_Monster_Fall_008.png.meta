@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      0_Monster_Fall_008_0: -9145626695704617118
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -442,7 +442,21 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ForestTurtle_tex_0: 4582765951778477189
+      ForestTurtle_tex_1: 1325412606461970061
+      ForestTurtle_tex_10: 2523267446309758416
+      ForestTurtle_tex_11: -6001548230656081470
+      ForestTurtle_tex_12: -3268839931903407006
+      ForestTurtle_tex_13: -6228810453763818676
+      ForestTurtle_tex_2: -6421379413862733866
+      ForestTurtle_tex_3: 3441729843155388017
+      ForestTurtle_tex_4: -4064542789133207931
+      ForestTurtle_tex_5: 4179324627494260826
+      ForestTurtle_tex_6: -3959946894506288102
+      ForestTurtle_tex_7: 985838237192837449
+      ForestTurtle_tex_8: 4887171478159507054
+      ForestTurtle_tex_9: -219964031936122028
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
