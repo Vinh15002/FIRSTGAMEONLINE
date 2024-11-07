@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      0_Monster_Jump_005_0: 474877614403529989
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
