@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "Stra\xDFeB_1100_0": 8428202234685190512
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

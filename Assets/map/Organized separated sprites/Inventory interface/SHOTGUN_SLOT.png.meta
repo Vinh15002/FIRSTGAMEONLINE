@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SHOTGUN_SLOT_0: 5693247247877351285
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

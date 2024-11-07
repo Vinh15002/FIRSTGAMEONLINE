@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      TRIPLE_AMMO_SLOT_0: -5087823345788180782
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

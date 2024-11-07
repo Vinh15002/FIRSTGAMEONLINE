@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Hellesglashaustest1_0: -6943019740421177526
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      GRENADE_SLOT_0: -6149780118557626045
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

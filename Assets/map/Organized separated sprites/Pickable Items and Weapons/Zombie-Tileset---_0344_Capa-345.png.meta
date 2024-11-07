@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Zombie-Tileset---_0344_Capa-345_0: -4597967955495031928
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

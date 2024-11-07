@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Hochhaus.1_0: -1016193503577581979
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

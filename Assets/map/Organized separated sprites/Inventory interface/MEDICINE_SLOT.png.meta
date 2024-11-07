@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MEDICINE_SLOT_0: 9208150451487685380
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
