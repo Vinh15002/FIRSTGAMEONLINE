@@ -84,10 +84,11 @@ public class SkillPlayer01 : NetworkBehaviour
     private void SkillSpaceServerRpc(Vector3 position, Quaternion rotation, Vector2 direction, ServerRpcParams serverRpcParams = default)
     {
         NetworkObject game = Instantiate(prefabBom, position, rotation);
-        game.transform.up = direction;
+       
       
         game.SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
         _cooldownSkillSpace.Value = cooldownSpace;
+        game.transform.up = direction;
     }
 
     private void Skill01(){

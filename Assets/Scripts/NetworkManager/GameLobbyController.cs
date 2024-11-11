@@ -73,9 +73,6 @@ public class GameLobbyController: Singleton<GameLobbyController>
     private async void LobbyUpdated(Lobby lobby)
     {
        
-       
-
-
         List<Dictionary<string,PlayerDataObject>> playerData = LobbyControll.Instance.GetPlayerData();
         _lobbyPlayerDatas.Clear();
 
@@ -102,7 +99,7 @@ public class GameLobbyController: Singleton<GameLobbyController>
         
         LobbyUI.instance.SetMap(_lobbyData.MapIndex);
         if(count == _lobbyPlayerDatas.Count){
-            LobbyUI.instance.SetStartButton();
+            LobbyUI.instance.SetStartButton(true);
 
            
         }
@@ -156,26 +153,26 @@ public class GameLobbyController: Singleton<GameLobbyController>
 
     public async Task StartGame()
     {
-        Allocation hostAllocation = await RelayManager.Instance.CreateRelay();
+        //Allocation hostAllocation = await RelayManager.Instance.CreateRelay();
 
-        _lobbyData.SetRelayJoinCode(RelayManager.Instance._joinCode);
-
-
-        await LobbyControll.Instance.UpdateLobbyData(_lobbyData.Serialize());
-
-        string allocationID = RelayManager.Instance.GetAllocation();
-        string connectionData = RelayManager.Instance.GetConnectionData();
+        // _lobbyData.SetRelayJoinCode(RelayManager.Instance._joinCode);
 
 
-        await LobbyControll.Instance.UpdatePlayerData(_localPlayerData.Id, _localPlayerData.Serialize(), allocationID, connectionData);
+        // await LobbyControll.Instance.UpdateLobbyData(_lobbyData.Serialize());
+
+        // string allocationID = RelayManager.Instance.GetAllocation();
+        // string connectionData = RelayManager.Instance.GetConnectionData();
+
+
+        // await LobbyControll.Instance.UpdatePlayerData(_localPlayerData.Id, _localPlayerData.Serialize(), allocationID, connectionData);
     
-        await SceneManager.LoadSceneAsync(_lobbyData.SenceName);
+        // await SceneManager.LoadSceneAsync(_lobbyData.SenceName);
 
-        RelayServerData relayServerData = new RelayServerData(hostAllocation, "dtls"); 
+        // RelayServerData relayServerData = new RelayServerData(hostAllocation, "dtls"); 
        
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+        // NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
        
-        NetworkManager.Singleton.StartHost();
+        // NetworkManager.Singleton.StartHost();
     }
 }

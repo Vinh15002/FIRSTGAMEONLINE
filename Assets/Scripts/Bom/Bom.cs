@@ -17,6 +17,7 @@ public class Bom : NetworkBehaviour
 
         GetComponent<Rigidbody2D>().velocity = transform.up*speed;
         
+        
         StartCoroutine(DestroyGameObject());
 
     }

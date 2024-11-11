@@ -25,10 +25,17 @@ public class Init : MonoBehaviour
                 if(username == ""){
                     PlayerPrefs.SetString("Username", username);
                 }
-
-                SceneManager.LoadSceneAsync("MenuMain");
+                StartCoroutine(LoadingScene());
+                
             }
         }
+    }
+
+    public IEnumerator LoadingScene(){
+        LoadingFadeEffect.Instance.FadeOut();
+        SceneManager.LoadSceneAsync("MenuMain");
+        yield return new WaitForSeconds(1f);
+         LoadingFadeEffect.Instance.FadeIn();
     }
 
 

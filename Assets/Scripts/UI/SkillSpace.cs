@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,12 +14,26 @@ public class SkillSpace : MonoBehaviour
     private TMP_Text text;
 
 
+    [SerializeField]
+    private Sprite SkillSpace02;
+
+
     private void OnEnable() {
         SkillEnvent.skillSpace += ChangeUI;
+        SkillEnvent.changeBackGroundSkill += ChangebackGround;
+    }
+
+    private void ChangebackGround(int index)
+    {
+        if(index == 2){
+            transform.GetChild(1).GetComponent<Image>().sprite = SkillSpace02;
+            transform.GetChild(2).GetComponent<Image>().sprite = SkillSpace02;
+        }
     }
 
     private void OnDisable() {
         SkillEnvent.skillSpace -= ChangeUI;
+        SkillEnvent.changeBackGroundSkill -= ChangebackGround;
     }
 
     private void ChangeUI(float currentCooldownSpace, float cooldownSpace)

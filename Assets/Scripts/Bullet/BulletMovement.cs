@@ -14,22 +14,30 @@ public class BulletMovement : NetworkBehaviour
 
     private Rigidbody2D _rigidbody;
 
-    private Vector2 direction;
+    public Vector2 direction;
     
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();
-       
-        
     }
     public override void OnNetworkSpawn()
     {
-        
-        direction = transform.up;
-        _rigidbody.velocity = new Vector2(direction.x, direction.y)*(float)Speed.Value;
-
+        //direction = transform.up;
         base.OnNetworkSpawn();
+        
+        // _rigidbody.velocity = new Vector2(direction.x, direction.y)*(float)Speed.Value;
+       
         StartCoroutine(DestroyGameObject());
+
+        Debug.Log("DirectionBullet: " + direction);
+    }
+
+    private void FixedUpdate() {
+        if(IsServer){
+            
+            transform.Translate(Vector2.up*Speed.Value*Time.deltaTime);
+        }
+        
     }
 
 
@@ -47,7 +55,7 @@ public class BulletMovement : NetworkBehaviour
         
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if(IsServer && !IsHost){
+        if(IsServer){
             if(other.CompareTag("Obstacle")){
                 GetComponent<NetworkObject>().Despawn();
             }

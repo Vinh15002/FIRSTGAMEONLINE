@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597019ca8ef00a745ba2a5b03c194a92, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  ImageCharactor: {fileID: -1271414215477146271, guid: a1e08e8e24188c543a9922379d49d3f2, type: 3}
+  damage: "T\u1EA5n c\xF4ng : 7"
+  health: "M\xE1u : 100"
+  speed: "Di chuy\u1EC3n : 5"
+  rateOfFire: "T\u1ED1c b\u1EAFn : 0.5"
+  hasCodeCharactor: 3269213171

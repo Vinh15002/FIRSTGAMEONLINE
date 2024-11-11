@@ -62,10 +62,20 @@ public class EnemyHealth : MonoBehaviour
     public void onDieEmenyServerRpc(){
         
         animator.SetTrigger("isDying");
+        
+        
+        StartCoroutine(DestroyObject());
+       
+    }
+
+    public IEnumerator DestroyObject(){
+        yield return new WaitForSeconds(0.7f);
         onDie.Invoke();
-        if(!NetworkManager.Singleton.IsServer) return;
         GetComponent<NetworkObject>().Despawn();
     }
+
+
+
     private void Awake() {
         animator = GetComponent<Animator>();
     }

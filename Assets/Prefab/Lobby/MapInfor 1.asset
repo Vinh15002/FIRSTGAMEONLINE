@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af0cd8179500f444b32a07f8c507539, type: 3}
+  m_Name: MapInfor 1
+  m_EditorClassIdentifier: 
+  ImageMap: {fileID: -6180388042257134923, guid: 15b92675c382069468d99cacbe1a6c1a, type: 3}
+  MapName: "Chi\u1EBFn tr\u01B0\u1EDDng xa m\u1EA1c"
+  SenceName: MainSence

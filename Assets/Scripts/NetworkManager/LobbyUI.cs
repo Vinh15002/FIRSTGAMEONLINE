@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +11,9 @@ using UnityEngine.UI;
 public class LobbyUI : MonoBehaviour
 {
 
+
     public static LobbyUI instance;
+    
     
 
     private int _currentMapIndex = 0;
@@ -23,34 +25,46 @@ public class LobbyUI : MonoBehaviour
     private TMP_Text _mapName;
 
     [SerializeField]
-    private RawImage _mapImage;
+    private Image _mapImage;
 
 
 
     [SerializeField]
     private TMP_Text text;
 
-    public LobbyUI()
-    {
-        instance = this;
-    }
+
 
     [SerializeField]
     private Button left;
+
     [SerializeField]
     private Button right;
 
     [SerializeField]
     private Button start;
 
-    // Start is called before the first frame update
-    void Start()
+
+    public LobbyUI()
     {
-        text.text = $"Lobby Code: {GameLobbyController.Instance.GetLobbyCode()}";
-        if(!GameLobbyController.Instance.IsHost){
+        instance = this;
+    }
+
+    private float timeToPress = 1.5f;
+
+    void  Start()
+    {
+        Invoke("Loading", 2f);
+        
+    }
+
+    public void Loading(){
+        if(!LobbyManager.Instance.IsHost()){
             left.gameObject.SetActive(false);
             right.gameObject.SetActive(false);
         }
+    }
+    private void FixedUpdate() {
+        timeToPress-=Time.deltaTime;
     }
 
 
@@ -60,22 +74,32 @@ public class LobbyUI : MonoBehaviour
 
 
     public async void OnLeftButtonClick(){
-        _currentMapIndex = _currentMapIndex - 1 >= 0  ? _currentMapIndex-1 : 0;
+
+        if(timeToPress <= 0){
+            AudioManager.Instance.PlaySoundEffect();
+            _currentMapIndex = _currentMapIndex - 1 >= 0  ? _currentMapIndex-1 : _mapselectionData.Maps.Count-1;
        
-        await GameLobbyController.Instance.SetSelectedMap(_currentMapIndex, _mapselectionData.Maps[_currentMapIndex].SenceName);
-        UpdateMap();
+            await UpdateLobbyManager.Instance.SetSelectedMap(_currentMapIndex, _mapselectionData.Maps[_currentMapIndex].SenceName);
+            UpdateMap();
+            timeToPress = 1.5f;
+        }
+       
     }
 
     public async void OnRightButtonClick(){
-        _currentMapIndex = _currentMapIndex + 1 <= _mapselectionData.Maps.Count-1 ? _currentMapIndex + 1 :  _mapselectionData.Maps.Count-1;
-        await GameLobbyController.Instance.SetSelectedMap(_currentMapIndex, _mapselectionData.Maps[_currentMapIndex].SenceName);
-        UpdateMap();
+        if(timeToPress <= 0){
+            AudioManager.Instance.PlaySoundEffect();
+            _currentMapIndex = _currentMapIndex + 1 <= _mapselectionData.Maps.Count-1 ? _currentMapIndex + 1 :  0;
+            await UpdateLobbyManager.Instance.SetSelectedMap(_currentMapIndex, _mapselectionData.Maps[_currentMapIndex].SenceName);
+            UpdateMap();
+            timeToPress = 1.5f;
+        }
     }
 
     private void UpdateMap()
     {
        
-        _mapImage.color= _mapselectionData.Maps[_currentMapIndex].MapThumnail;
+        _mapImage.sprite = _mapselectionData.Maps[_currentMapIndex].ImageMap;
 
 
         _mapName.text = _mapselectionData.Maps[_currentMapIndex].MapName;
@@ -87,16 +111,21 @@ public class LobbyUI : MonoBehaviour
         UpdateMap();
     }
 
-    public void SetStartButton()
-    {
-        if(GameLobbyController.Instance.IsHost && start != null){
-            start.gameObject.SetActive(true);
+    public void SetStartButton(bool v)
+    {   if(v){
+            if(LobbyManager.Instance.IsHost()){
+                start.gameObject.SetActive(true);
+            }
         }
+        else {
+            start.gameObject.SetActive(false);
+        }
+        
         
     }
 
 
-    public async void OnstartButton(){
-        await GameLobbyController.Instance.StartGame();
+    public void OnstartButton(){
+        start.gameObject.SetActive(true);
     }
 }

@@ -21,7 +21,6 @@ public class LobbyControll : Singleton<LobbyControll>{
         Dictionary<string, PlayerDataObject> PlayerData = SerializePlayerData(data);
         Player player = new Player(AuthenticationService.Instance.PlayerId, null, PlayerData);
         CreateLobbyOptions options = new CreateLobbyOptions{
-            
             Data = SerilizeLobbyData(lobbydata),
             IsPrivate = isPrivate,
             Player = player,
@@ -146,8 +145,6 @@ public class LobbyControll : Singleton<LobbyControll>{
        
         LobbyEvents.OnLobbyUpdated(_lobby);
         return true;
-
-        
     }
 
 

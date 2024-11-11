@@ -7,7 +7,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 
 
-public class RelayManager: Singleton<RelayManager> {
+public class RelayManager: SingletonPersistent<RelayManager> {
 
     public string _joinCode;
     private string _ip;
@@ -21,11 +21,11 @@ public class RelayManager: Singleton<RelayManager> {
 
         Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3); // số lượng người chơi 4 - 1
         _joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-        RelayServerEndpoint dtlsEnpoint = allocation.ServerEndpoints.First(conn => conn.ConnectionType == "dtls");
-        _ip = dtlsEnpoint.Host;
-        _port = dtlsEnpoint.Port;
-        _allocationID = allocation.AllocationId;
-        _connectionData = allocation.ConnectionData;
+        // RelayServerEndpoint dtlsEnpoint = allocation.ServerEndpoints.First(conn => conn.ConnectionType == "dtls");
+        // _ip = dtlsEnpoint.Host;
+        // _port = dtlsEnpoint.Port;
+        // _allocationID = allocation.AllocationId;
+        // _connectionData = allocation.ConnectionData;
         return allocation;
 
     }
@@ -34,11 +34,11 @@ public class RelayManager: Singleton<RelayManager> {
         _joinCode = code;
         JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(_joinCode);
         
-        RelayServerEndpoint dtlsEnpoint = allocation.ServerEndpoints.First(conn => conn.ConnectionType == "dtls");
-        _ip = dtlsEnpoint.Host;
-        _port = dtlsEnpoint.Port;
-        _allocationID = allocation.AllocationId;
-        _connectionData = allocation.ConnectionData;
+        // RelayServerEndpoint dtlsEnpoint = allocation.ServerEndpoints.First(conn => conn.ConnectionType == "dtls");
+        // _ip = dtlsEnpoint.Host;
+        // _port = dtlsEnpoint.Port;
+        // _allocationID = allocation.AllocationId;
+        // _connectionData = allocation.ConnectionData;
         return allocation;
     }
 

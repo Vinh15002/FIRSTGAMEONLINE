@@ -63,8 +63,9 @@ public class Attack : NetworkBehaviour
     private void UISpwanDamaeServerRpc(Vector3 position)
     {
         NetworkObject game =  Instantiate(UIDamage, position, Quaternion.identity);
-        game.GetComponent<DamaePopup>().textValue.Value = $"-{damage}";
+        
         game.Spawn();
+        game.GetComponent<DamaePopup>().textValue.Value = $"-{damage}";
     }
 
     public void OnDealDamageExit(){

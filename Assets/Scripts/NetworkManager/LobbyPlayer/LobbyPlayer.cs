@@ -2,23 +2,43 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LobbyPlayer : MonoBehaviour {
     [SerializeField]
-    private TMP_Text text;
+    private TMP_Text namePlayer;
 
     [SerializeField]
-    private SpriteRenderer sprite;
+    private Image imageCharactor;
+
+
+    [SerializeField]
+    private GameObject ready;
 
     private LobbyPlayerData _data;
     public void SetData(LobbyPlayerData data){
+       
         _data = data;
-        text.text = data.GameTag;
-
-        if(_data.IsReady && sprite != null && gameObject!=null){
-            sprite.color = Color.green;
+        namePlayer.text = data.GameTag;
+        if(imageCharactor !=null && gameObject != null){
+            imageCharactor.sprite = CharactorSelectionUI.instance._charectorSelectionData.AllPlayer[data.IndexSelected].ImageCharactor;
         }
+            
+        
+        if(_data.IsReady && gameObject!=null && ready!=null){
+            ready.SetActive(true);
+        }
+        else if (!_data.IsReady && gameObject!=null && ready!=null){
+            ready.SetActive(false);
+        }
+
+        // imageCharactor.GetComponent<Image>().
+
         gameObject.SetActive(true);
         
+        
+            
+        
     }
+       
 }

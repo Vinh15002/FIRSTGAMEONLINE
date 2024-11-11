@@ -28,6 +28,5 @@ public class DisplayHeal : MonoBehaviour
         
         txt.SetText($"{_currentHealth}/{_maxHealth}");
         slider.value = (float)_currentHealth/_maxHealth;
-        Debug.Log("IS CALLBACK");
     }
 }

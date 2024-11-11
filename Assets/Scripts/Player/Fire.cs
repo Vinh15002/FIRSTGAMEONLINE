@@ -49,27 +49,31 @@ public class Fire : NetworkBehaviour
 
 
     public void onFire(){
-        
-        Vector3 position = offset.position;
-        Quaternion rotation = transform.GetChild(0).transform.rotation;
-        Vector2 direction = transform.GetChild(0).transform.up;
-        
-        FireServerRpc(position, rotation, direction);
+        if(IsOwner){
+            Vector3 position = offset.position;
+            Quaternion rotation = transform.GetChild(0).transform.rotation;
+            Vector3 direction = transform.GetChild(0).transform.up;
+            
+            FireServerRpc(position, rotation, direction);
+        }
+       
         
 
         
     }
 
 
-    [ServerRpc(RequireOwnership =false)]
-    public void FireServerRpc(Vector3 position,Quaternion rotation, Vector2 direction, ServerRpcParams serverRpcParams = default){
+    [ServerRpc]
+    public void FireServerRpc(Vector3 position,Quaternion rotation, Vector3 direction, ServerRpcParams serverRpcParams = default){
         // NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(bulletPrefab, serverRpcParams.Receive.SenderClientId,false,true,false,
         // position,rotation);
         //FireClientRpc(position,rotation,direction, serverRpcParams.Receive.SenderClientId);
         NetworkObject game = Instantiate(bulletPrefab, position, rotation);
-        game.GetComponent<Rigidbody2D>().velocity = direction*speed;
-      
+        Debug.Log("Direction: " + direction);
+        game.GetComponent<BulletMovement>().direction = direction;
         game.SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
+       
+        
     }
     
 

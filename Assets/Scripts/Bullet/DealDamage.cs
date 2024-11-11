@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -18,22 +19,29 @@ public class DealDamage : NetworkBehaviour
 
 
     private void OnTriggerEnter2D(Collider2D other) {
+
         
-        if(!other.CompareTag("Enemy")) return;
-        
-        
-        if(NetworkManager.Singleton.IsServer){
-            other.GetComponent<EnemyHealth>().TakeDame(damage.Value);
-            Vector3 position = gameObject.transform.position;
-            SpawnBom(position);
-            SpawnUIDamdge(position);
-            GetComponent<NetworkObject>().Despawn();
+        if(other.CompareTag("Enemy")){
+            if(IsServer){
+                other.GetComponent<EnemyHealth>().TakeDame(damage.Value);
+                
+            }
+            SendInforServerRpc(other.transform.position);
+            
+           
         }
         
         
     }
+    [ServerRpc(RequireOwnership =false)]
+    private void SendInforServerRpc(Vector3 position)
+    { 
+       
+        SpawnBom(position);
+        SpawnUIDamdge(position);
+        GetComponent<NetworkObject>().Despawn();
+    }
 
-   
     public void SpawnBom(Vector3 positon){
         NetworkObject game =  Instantiate(prefabBom, positon, Quaternion.identity);
         game.Spawn();
@@ -42,8 +50,9 @@ public class DealDamage : NetworkBehaviour
 
     public void SpawnUIDamdge(Vector3 position){
         NetworkObject game =  Instantiate(UIDamege, position, Quaternion.identity);
-        game.GetComponent<DamaePopup>().textValue.Value = $"-{damage.Value}";
+        
         game.Spawn();
+        game.GetComponent<DamaePopup>().textValue.Value = $"-{damage.Value}";
     }
 
 

@@ -19,8 +19,9 @@ public class EmemyBomDealDame : NetworkBehaviour
                 other.GetComponent<HealthController>().TakeDame(damage);
 
                 NetworkObject game =  Instantiate(UIDamege, other.transform.position, Quaternion.identity);
-                game.GetComponent<DamaePopup>().textValue.Value = $"-{damage}";
+               
                 game.Spawn();
+                game.GetComponent<DamaePopup>().textValue.Value = $"-{damage}";
 
                 StartCoroutine(destroy());
             }

@@ -40,7 +40,7 @@ public class PlayerController : NetworkBehaviour
         }
         else{
             //onMoveNetwork();
-            _playerMovement.ProcessSimulatedPlayerMovemen();
+//            _playerMovement.ProcessSimulatedPlayerMovemen();
         }
         // HandleDirection();
         // HandleMoveInput();

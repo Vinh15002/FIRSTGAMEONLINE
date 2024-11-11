@@ -17,9 +17,9 @@ public class CollectorHeal : NetworkBehaviour
         if(!other.CompareTag("Player")) return;
         if(NetworkManager.Singleton.IsServer){
             NetworkObject game =  Instantiate(UIHeal, other.transform.position, Quaternion.identity);
+            game.Spawn();
             game.GetComponent<DamaePopup>().textValue.Value = $"+{amountHeal}";
             game.GetComponent<DamaePopup>().textColor.Value = "Green";
-            game.Spawn();
 
             other.GetComponent<HealthController>().GetHeal(amountHeal);
         }

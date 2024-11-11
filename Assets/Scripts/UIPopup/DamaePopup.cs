@@ -34,13 +34,30 @@ public class DamaePopup : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if(textColor.Value == "Green"){
-            textUI.color = Color.green;
-        }
+        
+        
+        textValue.OnValueChanged += OntextChange;
+        textColor.OnValueChanged += OnColorChange;
+        
+
         base.OnNetworkSpawn();
-        textUI.SetText(textValue.Value.ToString());
+        
         StartCoroutine(ExistCoroutine());
         
+        
+    }
+
+    private void OnColorChange(FixedString32Bytes previousValue, FixedString32Bytes newValue)
+    {
+         if(newValue == "Green"){
+            textUI.color = Color.green;
+        }
+    }
+
+    private void OntextChange(FixedString32Bytes previousValue, FixedString32Bytes newValue)
+    {
+        textUI.SetText(newValue.ToString());
+       
     }
 
     private IEnumerator ExistCoroutine()
@@ -53,6 +70,14 @@ public class DamaePopup : NetworkBehaviour
 
             yield return null;
         }
+        if(IsOwner)
+            sendTheServerRpc();
+        
+    }
+
+    [ServerRpc]
+    private void sendTheServerRpc()
+    {
         GetComponent<NetworkObject>().Despawn();
     }
 }

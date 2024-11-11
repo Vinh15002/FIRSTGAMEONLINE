@@ -7,26 +7,27 @@ public class LobbySpawner : MonoBehaviour {
     public static LobbySpawner instance;
 
     
-    [SerializeField] private List<LobbyPlayer> _players;
+
 
     
+    [SerializeField] private List<LobbyPlayer> _players;
 
-    private void OnEnable() {
-        LobbyEvents.lobbyUpdateUI += OnLoobyUpdated;
+    public LobbySpawner()
+    {
+        instance = this;
     }
-    private void OnDisable(){
-        LobbyEvents.lobbyUpdateUI -= OnLoobyUpdated;
+
+    private void Start() {
+        
     }
 
 
 
-    public void OnLoobyUpdated(){
-        List<LobbyPlayerData> playerDatas = GameLobbyController.Instance.GetPlayers();
-        Debug.Log(playerDatas.Count);
 
+    public void OnLobbyUpdated(List<LobbyPlayerData> playerDatas){
+        
         for(int i = 0; i < playerDatas.Count; i++){
             LobbyPlayerData data = playerDatas[i];
-            Debug.Log("Player Ready: " + data.IsReady);
             _players[i].SetData(data);
         }
 

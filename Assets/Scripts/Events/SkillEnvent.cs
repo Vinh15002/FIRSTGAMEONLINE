@@ -12,4 +12,10 @@ public class SkillEnvent
 
     public static SkillE skillSpace;
 
+
+
+    public delegate void ChangeBackGroundSkill(int index);
+
+    public static ChangeBackGroundSkill changeBackGroundSkill;
+
 }

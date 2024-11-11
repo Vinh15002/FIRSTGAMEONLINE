@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
-public class LobbyData : MonoBehaviour{
+public class LobbyData{
     private int _mapIndex;
     private string _relayJoinCode;
 
