@@ -8,7 +8,7 @@ public class EnemyMovement : NetworkBehaviour
 {
     [SerializeField]
     private float speed;
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D _rigidbody2D;
     private Animator animator;
 
     public bool hasTarget = false;
@@ -17,22 +17,22 @@ public class EnemyMovement : NetworkBehaviour
     private Vector2 direction;
     
     private void Awake() {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate() {
 
-        if(canMove){
-            rigidbody2D.velocity = Vector2.zero;
-            return;
-        }
+        
         if(hasTarget){
-            rigidbody2D.velocity= direction*speed;
-            transform.localScale = new Vector2(direction.x < 0 ? -1:1, 1);
+            _rigidbody2D.velocity= direction*speed;
+            transform.localScale = new Vector2(direction.x < 0.1f ? -1:1, 1);
         }
         else{
-            rigidbody2D.velocity = Vector2.zero;
+            _rigidbody2D.velocity = Vector2.zero;
+        }
+        if(canMove){
+            _rigidbody2D.velocity = Vector2.zero;
         }
 
         

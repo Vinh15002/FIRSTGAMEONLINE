@@ -6,8 +6,8 @@ using UnityEngine;
 public class Bom : NetworkBehaviour
 {
     private float _timeToDestroy = 3f;
-    [SerializeField]
-    private float speed = 10f;
+    
+    
 
 
     public override void OnNetworkSpawn()
@@ -15,20 +15,36 @@ public class Bom : NetworkBehaviour
         
         base.OnNetworkSpawn();
 
-        GetComponent<Rigidbody2D>().velocity = transform.up*speed;
+        //GetComponent<Rigidbody2D>().velocity = transform.up*speed;
         
         
+
+    }
+
+
+    public void SetActive(Vector3 position){
+        gameObject.SetActive(true);
+        transform.position=position;
         StartCoroutine(DestroyGameObject());
-
     }
 
-    public IEnumerator DestroyGameObject(){
+
+
+    public IEnumerator DestroyGameObject()
+    {
         yield return new WaitForSeconds(_timeToDestroy);
+        Reset();
+       
 
-        if(IsServer){
-            GetComponent<NetworkObject>().Despawn();
-        }
     }
+
+
+    public void Reset(){
+        transform.position = Vector3.zero;
+        gameObject.SetActive(false);
+    }
+
+
 
 
 

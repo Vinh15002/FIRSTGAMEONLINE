@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3717795289
+  GlobalObjectIdHash: 3269213171
   InScenePlacedSourceGlobalObjectIdHash: 3269213171
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19539c6c83cbb1c4b898491b1353cfe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeBullet: 0
   bulletPrefab: {fileID: 1499279365147277654, guid: a0e81b15be09c7c4dbe5254073cc4282, type: 3}
   offset: {fileID: 9070638007432241410}
   timecooldown: 0.5
@@ -503,7 +504,7 @@ MonoBehaviour:
   speedAdd: 20
   time_Dash: 0.2
   cooldownSkillE: 5
-  cooldownSpace: 1
+  cooldownSpace: 10
   prefabBom: {fileID: -49470558973057353, guid: 94d6c8904674c964f831c14f8b88bd63, type: 3}
 --- !u!114 &6898109758593174808
 MonoBehaviour:

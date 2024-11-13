@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -17,18 +18,41 @@ public class EmemyBomDealDame : NetworkBehaviour
         if(other.CompareTag("Player")){
             if(NetworkManager.Singleton.IsServer){
                 other.GetComponent<HealthController>().TakeDame(damage);
-
-                NetworkObject game =  Instantiate(UIDamege, other.transform.position, Quaternion.identity);
-               
-                game.Spawn();
-                game.GetComponent<DamaePopup>().textValue.Value = $"-{damage}";
-
-                StartCoroutine(destroy());
+                
             }
+           
+            
+
+            
+            GetComponent<BulletMovement>().Reset();
+
+           
+            //ObjectPooling.Singleton.SpawnBom(other.transform.position);
+            ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"-{damage}", Color.red);
+            
+
+            if(!IsHost && IsOwner){
+                
+                SendInforClientRpc(other.transform.position);
+            }
+            // GetComponent<BulletMovement>().Reset();
+            
+            
+            
+                
+
+                // NetworkObject game =  Instantiate(UIDamege, other.transform.position, Quaternion.identity);
+               
+                // game.Spawn();
+                // game.GetComponent<DamaePopup>().textValue.Value = $"-{damage}";
+
+                //GetComponent<BulletMovement>().Reset();
+                
         }
     }
-    IEnumerator destroy(){
-        yield return new WaitForSeconds(0.3f);
-        GetComponent<NetworkObject>().Despawn();
+    [ClientRpc]
+    private void SendInforClientRpc(Vector3 position)
+    {
+        ObjectPooling.Singleton.SpawnUIDamdge(position, $"-{damage}", Color.red);
     }
 }

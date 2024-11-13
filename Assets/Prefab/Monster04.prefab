@@ -81,6 +81,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b5f538ae431ca4fb12806ff0d4e0d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _timeAttack: 2
+  typeAttack: 1
   onDealDamage:
     m_PersistentCalls:
       m_Calls:
@@ -403,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1623594253
+  GlobalObjectIdHash: 3240363463
   InScenePlacedSourceGlobalObjectIdHash: 1623594253
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -851,8 +856,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7980211892076615720}
-  - component: {fileID: 7809771519652578461}
   - component: {fileID: 2356295585963323455}
+  - component: {fileID: 2394783600253244330}
   m_Layer: 0
   m_Name: findPlayer
   m_TagString: Untagged
@@ -875,7 +880,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7881814614508996267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &7809771519652578461
+--- !u!114 &2356295585963323455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8897026769777203850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee24aa25d75c8f4bb04113095e6304e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &2394783600253244330
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -910,16 +927,4 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 10
---- !u!114 &2356295585963323455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8897026769777203850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ee24aa25d75c8f4bb04113095e6304e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Radius: 15

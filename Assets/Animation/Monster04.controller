@@ -33,10 +33,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: isAttack
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5072063406357621772}
   m_Solo: 0
@@ -117,31 +114,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isAttack
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: cooldownAttack
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isHit
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isDying
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -191,9 +188,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isAttack
     m_EventTreshold: 0
-  - m_ConditionMode: 4
-    m_ConditionEvent: cooldownAttack
-    m_EventTreshold: 0.00000001
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5573810433714139674}
   m_Solo: 0
@@ -249,6 +243,7 @@ AnimatorState:
   - {fileID: -5743034479223730914}
   m_StateMachineBehaviours:
   - {fileID: 7460594006028500953}
+  - {fileID: 8806455192447295763}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -297,9 +292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb144bd42f656a14eb37eb4ca8cf7e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  valueOnExit: 1
+  valueOnExit: 0
   boolName: canMove
-  valueOnEnter: 0
+  valueOnEnter: 1
 --- !u!1107 &8686562010990770185
 AnimatorStateMachine:
   serializedVersion: 6
@@ -333,3 +328,18 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 1110, y: 130, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -5072063406357621772}
+--- !u!114 &8806455192447295763
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb144bd42f656a14eb37eb4ca8cf7e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueOnExit: 0
+  boolName: isAttack
+  valueOnEnter: 1

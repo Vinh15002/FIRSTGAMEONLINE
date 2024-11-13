@@ -234,7 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed:
-    m_InternalValue: 10
+    m_InternalValue: 1.5
+  direction: {x: 0, y: 0}
 --- !u!114 &7771396949027601340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,5 +250,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage:
     m_InternalValue: 5
-  prefabBom: {fileID: 2660815588972701677, guid: 1262d3266cb39ba4bb1b0fe992861c16, type: 3}
-  UIDamege: {fileID: 9177584881643471236, guid: 9826f5b66905c7143a6fb2f175c5bd5b, type: 3}

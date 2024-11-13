@@ -6,22 +6,23 @@ using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class DamaePopup : NetworkBehaviour
 {
+
+    private float timeToExist = 2f;
+
+    private float speed = 5f;
+
     [SerializeField]
-    private float timeToExist;
-
-    public NetworkVariable<FixedString32Bytes> textValue = new NetworkVariable<FixedString32Bytes>("", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
-
-    public NetworkVariable<FixedString32Bytes> textColor = new NetworkVariable<FixedString32Bytes>("", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
-    public TextMeshPro textUI;
+    private TMP_Text textUI;
 
    
 
     private void Awake() {
-        textUI = GetComponent<TextMeshPro>();
+       
         
     }
 
@@ -34,50 +35,44 @@ public class DamaePopup : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        
-        
-        textValue.OnValueChanged += OntextChange;
-        textColor.OnValueChanged += OnColorChange;
-        
-
         base.OnNetworkSpawn();
         
-        StartCoroutine(ExistCoroutine());
-        
-        
     }
 
-    private void OnColorChange(FixedString32Bytes previousValue, FixedString32Bytes newValue)
-    {
-         if(newValue == "Green"){
-            textUI.color = Color.green;
-        }
+
+
+    
+    private void FixedUpdate() {
+        
+        transform.Translate(Vector2.up*speed*Time.deltaTime);
+        textUI.alpha -= Time.deltaTime;
     }
 
-    private void OntextChange(FixedString32Bytes previousValue, FixedString32Bytes newValue)
+
+    public void SetActive(Vector3 position, string text, Color color){
+        gameObject.SetActive(true);
+        transform.position=position;
+        textUI.text = text;
+        textUI.color = color;
+        StartCoroutine(DestroyGameObject());
+    }
+
+
+
+    public IEnumerator DestroyGameObject()
     {
-        textUI.SetText(newValue.ToString());
+        yield return new WaitForSeconds(timeToExist);
+        Reset();
        
+
     }
 
-    private IEnumerator ExistCoroutine()
-    {
-        while(timeToExist >0){
-            timeToExist -= Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.05f,
-            transform.position.z);
-            textUI.alpha -= 0.005f;
 
-            yield return null;
-        }
-        if(IsOwner)
-            sendTheServerRpc();
-        
+    public void Reset(){
+        transform.position = Vector3.zero;
+        textUI.text = "";
+        textUI.color = Color.red;
+        gameObject.SetActive(false);
     }
 
-    [ServerRpc]
-    private void sendTheServerRpc()
-    {
-        GetComponent<NetworkObject>().Despawn();
-    }
 }

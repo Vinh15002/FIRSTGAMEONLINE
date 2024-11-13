@@ -27,72 +27,75 @@ public class Attack : NetworkBehaviour
     private NetworkObject UIDamage;
 
 
-    public float AttackColdown{
-        get {return animator.GetFloat("cooldownAttack");}
-
-        private set {
-            animator.SetFloat("cooldownAttack", value);
-        }
-
-    }
+   
 
 
-    private void FixedUpdate() {
-        if(AttackColdown > 0){
-            AttackColdown -= Time.deltaTime;
-        }
-        
-        
-    }
+    
 
     private void Awake() {
         animator = GetComponent<Animator>();
     }
 
     public void onDealDamage(Collider2D other){
-        if(AttackColdown < 0){
-            animator.SetBool("isAttack", true);
-            if(!NetworkManager.Singleton.IsServer) return;
-            other.GetComponent<HealthController>().TakeDame(damage);
-            AttackColdown = 1.5f;
-            UISpwanDamaeServerRpc(other.transform.position);
+      
+        animator.SetBool("isAttack", true);
+        //ObjectPooling.Singleton.SpawnBom(other.transform.position);
+        ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"-{damage}", Color.red);
+        
+
+        if(!IsHost && IsOwner){
+            SendInforClientRpc(other.transform.position);
         }
+        if(NetworkManager.Singleton.IsServer){
+            other.GetComponent<HealthController>().TakeDame(damage);
+        }
+            
+        
        
     }
-    [ServerRpc]
-    private void UISpwanDamaeServerRpc(Vector3 position)
+    [ClientRpc]
+    private void SendInforClientRpc(Vector3 position)
     {
-        NetworkObject game =  Instantiate(UIDamage, position, Quaternion.identity);
-        
-        game.Spawn();
-        game.GetComponent<DamaePopup>().textValue.Value = $"-{damage}";
+        ObjectPooling.Singleton.SpawnUIDamdge(position, $"-{damage}", Color.red);
     }
 
     public void OnDealDamageExit(){
-        animator.SetBool("isAttack", false);
+        //animator.SetBool("isAttack", false);
         animator.SetBool("canMove", false);
     }
 
     public void onDealDame2(Collider2D other){
-        animator.SetBool("canMove", true);
+        
         animator.SetBool("isAttack", true);
-        if(AttackColdown <1){
-            animator.SetBool("isAttack", true);
-            
-            if(!NetworkManager.Singleton.IsServer) return;
-            SpawnEnemyBomServerRpc(spwanBomPosition.position, other.transform.position);
-            AttackColdown = 3f;
+        animator.SetBool("canMove", true);
+
+
+       
+        // if(AttackColdown <0.1f){
+        //     animator.SetBool("isAttack", true);
+        //     animator.SetBool("canMove", true);
+        
+        if(IsOwner){
+            Vector2 direction = other.transform.position- transform.position;
+            SpawnEnemyBomClientRpc(spwanBomPosition.position, Quaternion.identity, direction );
+            if(!IsHost){
+                ObjectPooling.Singleton.SpawnBomEnemy01(spwanBomPosition.position, Quaternion.identity, direction );
+            }
         }
+           
+            
+
+        // }
         
         
     }
 
-    [ServerRpc]
-    public void SpawnEnemyBomServerRpc(Vector3 position, Vector3 targetPosition){
-        NetworkObject game =  Instantiate(prefabBom, position, Quaternion.identity);
-        Vector2 direction = targetPosition - position;
-        game.GetComponent<Transform>().up = direction;
-        game.Spawn();
+
+
+
+    [ClientRpc]
+    public void SpawnEnemyBomClientRpc(Vector3 position, Quaternion identity, Vector2 direction){
+       ObjectPooling.Singleton.SpawnBomEnemy01(position, Quaternion.identity, direction );
     }
 
 

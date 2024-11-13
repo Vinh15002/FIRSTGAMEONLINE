@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -16,15 +17,22 @@ public class CollectorHeal : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(!other.CompareTag("Player")) return;
         if(NetworkManager.Singleton.IsServer){
-            NetworkObject game =  Instantiate(UIHeal, other.transform.position, Quaternion.identity);
-            game.Spawn();
-            game.GetComponent<DamaePopup>().textValue.Value = $"+{amountHeal}";
-            game.GetComponent<DamaePopup>().textColor.Value = "Green";
+            
 
             other.GetComponent<HealthController>().GetHeal(amountHeal);
         }
-        
 
+        ObjectPooling.Singleton.SpawnUIDamdge(transform.position, $"+{amountHeal}", Color.green);
+        if(!IsHost && IsOwner){
+            SendInforClientRpc(transform.position);
+        }
+
+    }
+
+    [ClientRpc]
+    private void SendInforClientRpc(Vector3 position)
+    {
+        ObjectPooling.Singleton.SpawnUIDamdge(position, $"+{amountHeal}", Color.green);
     }
 
 

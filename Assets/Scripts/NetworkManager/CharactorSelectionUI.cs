@@ -87,7 +87,7 @@ public class CharactorSelectionUI : MonoBehaviour
         loadingScene.SetActive(true);
         
         bool suc = await UpdateLobbyManager.Instance.OnPlayerStart();
-        await Task.Delay(4000);
+        await Task.Delay(1000);
         if(suc){
             StartCoroutine(LobbyManager.Instance.LoadingScenceFade());
             SceneManager.LoadScene(LobbyManager.Instance._lobbyData.SenceName);

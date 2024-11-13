@@ -27,38 +27,39 @@ public class BulletMovement : NetworkBehaviour
         
         // _rigidbody.velocity = new Vector2(direction.x, direction.y)*(float)Speed.Value;
        
+        //StartCoroutine(DestroyGameObject());
+    }
+
+    public void SetActive(Vector3 position, Quaternion quaternion, Vector2 directory){
+        gameObject.SetActive(true);
+        transform.position=position;
+        transform.rotation = quaternion;
+        _rigidbody.velocity = directory*Speed.Value;
         StartCoroutine(DestroyGameObject());
-
-        Debug.Log("DirectionBullet: " + direction);
-    }
-
-    private void FixedUpdate() {
-        if(IsServer){
-            
-            transform.Translate(Vector2.up*Speed.Value*Time.deltaTime);
-        }
-        
     }
 
 
 
-    private IEnumerator DestroyGameObject()
+    public IEnumerator DestroyGameObject()
     {
-       
         yield return new WaitForSeconds(2f);
-        
-        if(IsServer){
-            GetComponent<NetworkObject>().Despawn();
-        }
-        
-        
-        
+        Reset();
+       
+
+    }
+
+
+    public void Reset(){
+        transform.position = Vector3.zero;
+        _rigidbody.velocity = Vector2.zero;
+        gameObject.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if(IsServer){
-            if(other.CompareTag("Obstacle")){
-                GetComponent<NetworkObject>().Despawn();
-            }
+        if(other.CompareTag("Obstacle")){
+            ObjectPooling.Singleton.SpawnBom(transform.position);
+            Reset();
+
+            
         }
         
     }

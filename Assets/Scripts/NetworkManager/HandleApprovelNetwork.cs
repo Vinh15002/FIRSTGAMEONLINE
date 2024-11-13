@@ -13,14 +13,16 @@ public class HandleApprovelNetwork : MonoBehaviour
 
     private void Start() {
         NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
+        
     }
 
     private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
     {
         Debug.Log("Connect Approval");
         response.Approved = true;
-        response.CreatePlayerObject = true;
-        response.PlayerPrefabHash = null;
+        response.CreatePlayerObject = false;
+        Debug.Log("HAS CODE: " + LobbyManager.Instance._localPlayerData.HasCodePlayer);
+        response.PlayerPrefabHash = LobbyManager.Instance._localPlayerData.HasCodePlayer;
         response.Position = position.position;
         if(NetworkManager.Singleton.ConnectedClients.Count >= MaxPlayer){
             response.Approved = false;

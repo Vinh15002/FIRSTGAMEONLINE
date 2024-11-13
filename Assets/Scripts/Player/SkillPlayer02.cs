@@ -80,6 +80,9 @@ public class SkillPlayer02 : NetworkBehaviour
         }
     }
 
+
+    
+
     [ServerRpc]
     private void SpwanSkillSpcaeServerRpc(Vector3 positionSpwan)
     {

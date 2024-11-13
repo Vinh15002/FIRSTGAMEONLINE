@@ -12,9 +12,6 @@ public class BulletChaseMovement : NetworkBehaviour
 
     private Rigidbody2D _rigidbody;
 
-    [SerializeField]
-    private float AddDegree = 30f;
-
 
     private void Awake() {
         _rigidbody = GetComponent<Rigidbody2D>();

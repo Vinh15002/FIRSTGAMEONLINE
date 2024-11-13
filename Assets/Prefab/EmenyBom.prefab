@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 495862523508474644}
   - component: {fileID: 8910021421323903550}
   - component: {fileID: 928657304698712917}
-  - component: {fileID: -5794485465072132623}
   - component: {fileID: -6397149203444578641}
   - component: {fileID: -8945301813896546763}
   - component: {fileID: 1776722197079673872}
   - component: {fileID: 8752229512240386899}
+  - component: {fileID: 5260350254120411444}
   m_Layer: 0
   m_Name: EmenyBom
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 2779552769111897569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.02, y: -2.44, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,7 +154,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2779552769111897569}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -173,19 +173,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-5794485465072132623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2779552769111897569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c788329d31f86d141b3ef75f1d460f92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
 --- !u!114 &-6397149203444578641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,3 +259,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.08
+--- !u!114 &5260350254120411444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2779552769111897569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c336b562ef80a049a6b2659d387228b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed:
+    m_InternalValue: 1.5
+  direction: {x: 0, y: 0}

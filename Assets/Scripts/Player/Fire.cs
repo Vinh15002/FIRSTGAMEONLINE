@@ -9,6 +9,11 @@ using UnityEngine.UI;
 
 public class Fire : NetworkBehaviour
 {
+
+    [SerializeField]
+    private int typeBullet;
+
+
     [SerializeField]
     private NetworkObject bulletPrefab;
 
@@ -26,7 +31,6 @@ public class Fire : NetworkBehaviour
 
     private Rigidbody2D _rigibody;
 
-    private float speed = 10f;
 
    
     private void Awake() {
@@ -54,28 +58,48 @@ public class Fire : NetworkBehaviour
             Quaternion rotation = transform.GetChild(0).transform.rotation;
             Vector3 direction = transform.GetChild(0).transform.up;
             
+            //FireServerRpc(position, rotation, direction);
+            
+            //ObjectPooling.Singleton.SpawnBullet01(position,rotation, direction);
+            
             FireServerRpc(position, rotation, direction);
+
+            // if(NetworkManager.Singleton.IsHost){
+            //     FireClientRpc(position, rotation, direction);
+            // }
         }
        
         
 
         
     }
-
+    [ClientRpc]
+    private void FireClientRpc(Vector3 position, Quaternion rotation, Vector3 direction)
+    {
+        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,typeBullet);
+    }
 
     [ServerRpc]
-    public void FireServerRpc(Vector3 position,Quaternion rotation, Vector3 direction, ServerRpcParams serverRpcParams = default){
-        // NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(bulletPrefab, serverRpcParams.Receive.SenderClientId,false,true,false,
-        // position,rotation);
-        //FireClientRpc(position,rotation,direction, serverRpcParams.Receive.SenderClientId);
-        NetworkObject game = Instantiate(bulletPrefab, position, rotation);
-        Debug.Log("Direction: " + direction);
-        game.GetComponent<BulletMovement>().direction = direction;
-        game.SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
-       
+    private void FireServerRpc(Vector3 position, Quaternion rotation, Vector3 direction)
+    {
         
+        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,typeBullet);
+        FireClientRpc(position,rotation, direction);
     }
-    
+
+    // [ServerRpc]
+    // public void FireServerRpc(Vector3 position,Quaternion rotation, Vector3 direction, ServerRpcParams serverRpcParams = default){
+    //     // NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(bulletPrefab, serverRpcParams.Receive.SenderClientId,false,true,false,
+    //     // position,rotation);
+    //     //FireClientRpc(position,rotation,direction, serverRpcParams.Receive.SenderClientId);
+    //     NetworkObject game = Instantiate(bulletPrefab, position, rotation);
+    //     Debug.Log("Direction: " + direction);
+    //     game.GetComponent<BulletMovement>().direction = direction;
+    //     game.SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
+
+
+    // }
+
 
 
 

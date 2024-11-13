@@ -5,6 +5,9 @@ using System.Collections;
 
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Unity.Netcode.Transports.UTP;
+using Unity.Netcode;
+using Unity.Networking.Transport.Relay;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay.Models;
@@ -89,11 +92,9 @@ public class UpdateLobbyManager: SingletonPersistent<UpdateLobbyManager>{
     {   if(loadingScene!=null)
             loadingScene.SetActive(true);
         joinedLobby = await RelayManager.Instance.JoinRelay(relayCode);
-        if(joinedLobby!=null){
-            LobbyManager.loadTheNextScene = true;
-            //StartCoroutine(LobbyManager.Instance.LoadingScenceFade());
-            await SceneManager.LoadSceneAsync(LobbyManager.Instance._lobbyData.SenceName);
+        LobbyManager.loadTheNextScene = true;
+        StartCoroutine(LobbyManager.Instance.LoadingScenceFade());
+        await SceneManager.LoadSceneAsync(LobbyManager.Instance._lobbyData.SenceName);
 
-        }
     }
 }

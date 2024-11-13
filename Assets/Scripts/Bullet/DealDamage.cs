@@ -10,54 +10,48 @@ public class DealDamage : NetworkBehaviour
     [SerializeField]
     public NetworkVariable<int> damage = new NetworkVariable<int>(5, NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Server);
 
-    [SerializeField]
-    private NetworkObject prefabBom;
-
-
-    [SerializeField]
-    private NetworkObject UIDamege;
 
 
     private void OnTriggerEnter2D(Collider2D other) {
 
         
         if(other.CompareTag("Enemy")){
-            if(IsServer){
+            if(NetworkManager.Singleton.IsServer){
                 other.GetComponent<EnemyHealth>().TakeDame(damage.Value);
                 
             }
-            SendInforServerRpc(other.transform.position);
+           
+            GetComponent<BulletMovement>().Reset();
+
+           
+            ObjectPooling.Singleton.SpawnBom(other.transform.position);
+            ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"-{damage.Value}", Color.red);
             
+            
+            if(!IsHost && IsOwner){
+                
+                SendInforClientRpc(other.transform.position);
+            }
+
+            
+            //SendInforServerRpc(other.transform.position);
+
+
+            
+            // if(!IsHost){
+            //     SendInforServerRpc(other.transform.position);
+            // }
+                
+           
            
         }
         
         
     }
-    [ServerRpc(RequireOwnership =false)]
-    private void SendInforServerRpc(Vector3 position)
-    { 
-       
-        SpawnBom(position);
-        SpawnUIDamdge(position);
-        GetComponent<NetworkObject>().Despawn();
+    [ClientRpc]
+    private void SendInforClientRpc(Vector3 position)
+    {
+        ObjectPooling.Singleton.SpawnBom(position);
+        ObjectPooling.Singleton.SpawnUIDamdge(position, $"-{damage.Value}", Color.red);
     }
-
-    public void SpawnBom(Vector3 positon){
-        NetworkObject game =  Instantiate(prefabBom, positon, Quaternion.identity);
-        game.Spawn();
-        
-    }
-
-    public void SpawnUIDamdge(Vector3 position){
-        NetworkObject game =  Instantiate(UIDamege, position, Quaternion.identity);
-        
-        game.Spawn();
-        game.GetComponent<DamaePopup>().textValue.Value = $"-{damage.Value}";
-    }
-
-
-
-
-
-
 }

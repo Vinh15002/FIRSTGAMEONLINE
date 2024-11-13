@@ -7,4 +7,5 @@ public class MapInfor : ScriptableObject {
     public Sprite ImageMap;
     public string MapName;
     public string SenceName;
+
 }

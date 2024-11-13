@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e651dbb3fbac04af2b8f5abf007ddc23, type: 3}
-  m_Name: Collector
+  m_Script: {fileID: 11500000, guid: 13cbed52076503040bc0c8ecb2e8cb94, type: 3}
+  m_Name: BulletMax
   m_EditorClassIdentifier: 
-  IsDefault: 0
-  List: []
+  prefab: {fileID: -49470558973057353, guid: 94d6c8904674c964f831c14f8b88bd63, type: 3}
+  amount: 3
+  currentIndex: 0
+  listObject:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

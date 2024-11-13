@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -39,7 +40,8 @@ public class AddHealth : NetworkBehaviour
         
     }
     private void FixedUpdate() {
-        _timeHeal += Time.deltaTime;
+        if(NetworkManager.Singleton.IsServer)
+            _timeHeal += Time.deltaTime;
         
     }
 
@@ -47,19 +49,32 @@ public class AddHealth : NetworkBehaviour
     private void OnTriggerStay2D(Collider2D other) {
 
         if(other.CompareTag("Player")){
-           if(NetworkManager.Singleton.IsServer){
-                if(_timeHeal >= timeHeal){
-                    NetworkObject game =  Instantiate(UIHeal, other.transform.position, Quaternion.identity);
-                    game.Spawn();
-                    game.GetComponent<DamaePopup>().textValue.Value = $"+{heal}";
-                    game.GetComponent<DamaePopup>().textColor.Value = "Green";
+            if(_timeHeal >= timeHeal){
+                if(NetworkManager.Singleton.IsServer){
                     other.GetComponent<HealthController>().GetHeal(heal);
-                    _timeHeal = 0;
+                   
+                    ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal}", Color.green);
+                    
                 }
+                ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal}", Color.green);
+                if(IsOwner){
+                    SendInforClientRpc(other.transform.position);
+                }
+                if(IsHost){
+                    ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal}", Color.green);
+                }
+                 _timeHeal = 0;
                
            }
         }
+           
+    }
         
             
+    
+    [ClientRpc]
+    private void SendInforClientRpc(Vector3 position)
+    {
+        ObjectPooling.Singleton.SpawnUIDamdge(position, $"+{heal}", Color.green);
     }
 }

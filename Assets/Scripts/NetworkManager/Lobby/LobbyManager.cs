@@ -99,7 +99,7 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
     public async void UpdateLobbyRepeated(){
         while (Application.isPlaying)
         {
-            
+            await Task.Delay(1000);
             if (string.IsNullOrEmpty(_lobbyID))
             {
                 return;
@@ -109,7 +109,7 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
             Lobby lobby = await Lobbies.Instance.GetLobbyAsync(_lobbyID);
             OnUpdateLobby(lobby);
             if(loadTheNextScene) return;
-            await Task.Delay(1000);
+            
             // if(_lobbyData.RelayCode != null){
             //     LoadingSceneJoin(_lobbyData.RelayCode);
             // }
@@ -198,14 +198,12 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
         if(_lobbyData.RelayCode.Length > 3 && !IsHost()){
             await UpdateLobbyManager.Instance.JoinRelayPlay(_lobbyData.RelayCode.ToString().Trim());
             return;
-           
+
             
         }
        
         LobbySpawner.instance.OnLobbyUpdated(_lobbyPlayerDatas);
-        
-            
-
+    
         LobbyUI.instance.SetMap(_lobbyData.MapIndex);
         if(count == _lobbyPlayerDatas.Count){
             LobbyUI.instance.SetStartButton(true);
@@ -213,10 +211,13 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
         else {
             LobbyUI.instance.SetStartButton(false);
         }
+        
+        
     }
 
     private async void LobbyHeartbeat(Lobby lobby){
         while(true){
+            if (loadTheNextScene) break;
             if(lobby == null){
                 return;
             }
@@ -245,12 +246,13 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
             _lobbyID = LobbyID;
             getnextScene = true;
             _lobby = lobby;
-            
+            UpdateLobbyRepeated();
+            LobbyHeartbeat(_lobby);
             
         }catch(LobbyServiceException e){
             return false;
         }
-        UpdateLobbyRepeated();
+        
         return true;
     }
 

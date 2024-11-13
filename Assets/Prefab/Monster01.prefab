@@ -631,6 +631,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b5f538ae431ca4fb12806ff0d4e0d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _timeAttack: 0.5
   onDealDamage:
     m_PersistentCalls:
       m_Calls:

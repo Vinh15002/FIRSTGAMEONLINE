@@ -18,41 +18,35 @@ public class PlayerController : NetworkBehaviour
     private NetworkMovementComponent _playerMovement;
 
 
-    private Camera camera;
+    private Camera _camera;
 
     
     private void Awake() {
         _rigibody = GetComponent<Rigidbody2D>();
-        camera = Camera.main;
+        _camera = Camera.main;
        
     }
 
-    private void Update() { 
+    private void FixedUpdate() { 
   
         if(!IsOwner || !Application.isFocused) return;
         
         
 
-        if(IsClient && IsLocalPlayer){
+        if(IsOwner){
             
             onMoveNetwork();
-            _playerMovement.ProcessLocalPlayerMovement(moveInput, moveInput);
+            HandleDirection();
+            HandleMoveInput();
+            
+            _camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         }
-        else{
-            //onMoveNetwork();
-//            _playerMovement.ProcessSimulatedPlayerMovemen();
-        }
-        // HandleDirection();
-        // HandleMoveInput();
+            //_playerMovement.ProcessLocalPlayerMovement(moveInput, moveInput);
+       
+        
         
 
 
-    }
-
-    private void FixedUpdate() {
-        if(IsOwner){
-            camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
-        }
     }
 
     // private void OnTriggerEnter2D(Collider2D other) {
@@ -64,7 +58,9 @@ public class PlayerController : NetworkBehaviour
     // }
 
     private void HandleMoveInput(){
+        _rigibody.velocity = moveInput*speed.Value;
         HandleMoveInputServerRpc(moveInput);
+        
     }
 
     [ServerRpc]
@@ -85,9 +81,10 @@ public class PlayerController : NetworkBehaviour
     private void HandleDirection(){
         if(moveInput!=Vector2.zero){
 
-        
+            
             Quaternion targetRotation = Quaternion.LookRotation(transform.forward, moveInput);
             Quaternion rotate = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f*Time.deltaTime);
+            _rigibody.MoveRotation(rotate);
             HandleDirectionServerRpc(rotate);
             
         }

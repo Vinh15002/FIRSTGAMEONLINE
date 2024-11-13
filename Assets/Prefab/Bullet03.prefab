@@ -36,7 +36,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 345427618
+  GlobalObjectIdHash: 861005318
   InScenePlacedSourceGlobalObjectIdHash: 2199769072
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -145,8 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage:
     m_InternalValue: 5
-  prefabBom: {fileID: 2660815588972701677, guid: 1262d3266cb39ba4bb1b0fe992861c16, type: 3}
-  UIDamege: {fileID: 9177584881643471236, guid: 9826f5b66905c7143a6fb2f175c5bd5b, type: 3}
 --- !u!95 &7521219562523758664
 Animator:
   serializedVersion: 7

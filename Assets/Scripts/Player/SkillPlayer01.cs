@@ -27,17 +27,17 @@ public class SkillPlayer01 : NetworkBehaviour
     private float cooldownSkillE = 5f;
 
     [SerializeField]
-    private float cooldownSpace = 20f;
+    private float cooldownSpace = 10f;
 
-    private NetworkVariable<float> _cooldownSkillSpace = new NetworkVariable<float>(20f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    private NetworkVariable<float> _cooldownSkillSpace = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
-    private NetworkVariable<float> _cooldownSkillE = new NetworkVariable<float>(5f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    private NetworkVariable<float> _cooldownSkillE = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     
     [SerializeField]
     private NetworkObject prefabBom;
 
     private void Awake() {
-        speedOrigin = GetComponent<NetworkMovementComponent>().speed.Value;
+        speedOrigin = GetComponent<PlayerController>().speed.Value;
         _cooldownSkillE.OnValueChanged += ChangeValue;
         _cooldownSkillSpace.OnValueChanged += ChangeValueSpace;
     }
@@ -61,7 +61,7 @@ public class SkillPlayer01 : NetworkBehaviour
             _cooldownSkillSpace.Value = _cooldownSkillSpace.Value >=0 ? _cooldownSkillSpace.Value  - Time.deltaTime : 0;
         }
 
-        if(!IsOwner && !Application.isFocused) return;
+        if(!IsOwner || !Application.isFocused) return;
         Skill01();
         Skill02();
         
@@ -74,22 +74,28 @@ public class SkillPlayer01 : NetworkBehaviour
                 Vector3 position = transform.GetChild(0).transform.GetChild(0).transform.position;
                 Quaternion rotation = transform.GetChild(0).transform.rotation;
                 Vector2 direction = transform.GetChild(0).transform.up;
-                SkillSpaceServerRpc(position,rotation, direction);
-                
+                FireServerRpc(position, rotation, direction);
+                _cooldownSkillSpace.Value = cooldownSpace;
             }
         }
     }
 
-    [ServerRpc]
-    private void SkillSpaceServerRpc(Vector3 position, Quaternion rotation, Vector2 direction, ServerRpcParams serverRpcParams = default)
+
+    [ClientRpc]
+    private void FireClientRpc(Vector3 position, Quaternion rotation, Vector3 direction)
     {
-        NetworkObject game = Instantiate(prefabBom, position, rotation);
-       
-      
-        game.SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
-        _cooldownSkillSpace.Value = cooldownSpace;
-        game.transform.up = direction;
+        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,2);
     }
+
+    [ServerRpc]
+    private void FireServerRpc(Vector3 position, Quaternion rotation, Vector3 direction)
+    {
+        
+        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,2);
+        FireClientRpc(position,rotation, direction);
+        
+    }
+
 
     private void Skill01(){
         if(Input.GetKeyDown(KeyCode.E) && _cooldownSkillE.Value <=0){
@@ -107,9 +113,9 @@ public class SkillPlayer01 : NetworkBehaviour
 
     public IEnumerator DashTime(){
 
-        GetComponent<NetworkMovementComponent>().speed.Value = speedOrigin + speedAdd;
+        GetComponent<PlayerController>().speed.Value = speedOrigin + speedAdd;
         yield return new WaitForSeconds(time_Dash);
-        GetComponent<NetworkMovementComponent>().speed.Value = speedOrigin;
+        GetComponent<PlayerController>().speed.Value = speedOrigin;
         _cooldownSkillE.Value = cooldownSkillE;
     }
 
