@@ -1,8 +1,5 @@
 using Assets.Scripts.Collector;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Runtime.CompilerServices;
+
 using Unity.Netcode;
 using UnityEngine;
 

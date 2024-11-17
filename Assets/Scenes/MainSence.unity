@@ -5811,8 +5811,6 @@ MonoBehaviour:
   timeToSpawn: 5
   ListPrefab:
   - {fileID: 9145556836398181429, guid: 974ccce34b8c8ec419ea57d0885d318a, type: 3}
-  - {fileID: 7590296481884969520, guid: bd81499702053fa4dbe898010ab9aefb, type: 3}
-  - {fileID: 3741599731255916984, guid: d3deb00f75b66da439340cecfa42c040, type: 3}
   - {fileID: 3035373866588724065, guid: 45d87ee135e77e643a3bc45afe70479b, type: 3}
 --- !u!1 &755763368
 GameObject:
@@ -35013,7 +35011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1490138167
 MonoBehaviour:
   m_ObjectHideFlags: 0
