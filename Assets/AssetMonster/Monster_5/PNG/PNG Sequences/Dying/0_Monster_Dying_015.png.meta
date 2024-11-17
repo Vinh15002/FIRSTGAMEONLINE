@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      0_Monster_Dying_015_0: -7011231346215760993
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
