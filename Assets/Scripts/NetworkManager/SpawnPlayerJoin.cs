@@ -6,24 +6,33 @@ using Unity.Networking.Transport.Relay;
 using Unity.Netcode;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
+using Unity.Services.Lobbies;
+using UnityEngine.UIElements;
 
 
 public class SpawnPlayerJoin : NetworkBehaviour
 {
-    [SerializeField]
-    private NetworkObject game;
 
-
+    
     
     void Start()
     {
-        if(LobbyManager.Instance.IsHost()){
+    
+ 
+        if (LobbyManager.Instance.IsHost()){
+            
             RelayServerData relayServerData = new RelayServerData(UpdateLobbyManager.Instance.createLobby, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+            Debug.Log("Player HardCode: " + LobbyManager.Instance._localPlayerData.HasCodePlayer);
+
+
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = System.BitConverter.GetBytes(LobbyManager.Instance._localPlayerData.HasCodePlayer);
             NetworkManager.Singleton.StartHost();
-            NetworkObject gameSpawn =  Instantiate(game, Vector3.zero, Quaternion.identity);
-            gameSpawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
-           
+            Debug.Log("Host Joined");
+
+
+
 
 
         }
@@ -33,24 +42,22 @@ public class SpawnPlayerJoin : NetworkBehaviour
 
             RelayServerData relayServerData = new RelayServerData(UpdateLobbyManager.Instance.joinedLobby, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-            Debug.Log("???" + NetworkManager.Singleton.LocalClientId);
+            Debug.Log("Player HardCode: " + LobbyManager.Instance._localPlayerData.HasCodePlayer);
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = System.BitConverter.GetBytes(LobbyManager.Instance._localPlayerData.HasCodePlayer);
             NetworkManager.Singleton.StartClient();
+            Debug.Log("Client Joined");
 
-   
+
+
+
+
+
+
 
             //Debug.Log("????WTF: " + LobbyManager.Instance._localPlayerData.HasCodePlayer);
-            SendTheServerRpc();
-            
-
-
+            //SendTheServerRpc();
         }
     }
 
-    [ServerRpc]
-    private void SendTheServerRpc()
-    {
-        NetworkObject gameSpawn = Instantiate(game, Vector3.zero, Quaternion.identity);
-        gameSpawn.GetComponent<NetworkObject>().Spawn();
-    }
-
+    
 }

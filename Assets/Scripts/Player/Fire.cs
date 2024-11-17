@@ -25,6 +25,10 @@ public class Fire : NetworkBehaviour
     private float timecooldown = 0.5f;
     private float _timecooldown = 0.5f;
 
+
+    [SerializeField]
+    public NetworkVariable<int> DamageFire =  new NetworkVariable<int>(7,NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server); 
+
     private bool canFire {
         get {return _timecooldown>timecooldown;}
     }
@@ -57,12 +61,11 @@ public class Fire : NetworkBehaviour
             Vector3 position = offset.position;
             Quaternion rotation = transform.GetChild(0).transform.rotation;
             Vector3 direction = transform.GetChild(0).transform.up;
-            
+
             //FireServerRpc(position, rotation, direction);
-            
+
             //ObjectPooling.Singleton.SpawnBullet01(position,rotation, direction);
-            
-            FireServerRpc(position, rotation, direction);
+            FireServerRpc(position, rotation, direction, DamageFire.Value);
 
             // if(NetworkManager.Singleton.IsHost){
             //     FireClientRpc(position, rotation, direction);
@@ -74,17 +77,17 @@ public class Fire : NetworkBehaviour
         
     }
     [ClientRpc]
-    private void FireClientRpc(Vector3 position, Quaternion rotation, Vector3 direction)
+    private void FireClientRpc(Vector3 position, Quaternion rotation, Vector3 direction, int DamageFire)
     {
-        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,typeBullet);
+        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,typeBullet,DamageFire);
     }
 
     [ServerRpc]
-    private void FireServerRpc(Vector3 position, Quaternion rotation, Vector3 direction)
+    private void FireServerRpc(Vector3 position, Quaternion rotation, Vector3 direction, int DamageFire)
     {
         
-        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,typeBullet);
-        FireClientRpc(position,rotation, direction);
+        //ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,typeBullet, DamageFire);
+        FireClientRpc(position,rotation, direction, DamageFire);
     }
 
     // [ServerRpc]

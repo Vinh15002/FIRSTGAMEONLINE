@@ -8,10 +8,15 @@ public class DestroyObjectTower: NetworkBehaviour{
 
     [SerializeField]
     private float timeToDestroy = 10f;
-    
+
+
+
     public override void OnNetworkSpawn()
     {
+        
         base.OnNetworkSpawn();
+        
+       
         StartCoroutine(DestroyObject());
     }
 

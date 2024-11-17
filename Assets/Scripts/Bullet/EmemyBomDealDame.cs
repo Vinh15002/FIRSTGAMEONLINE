@@ -1,3 +1,4 @@
+using Assets.Scripts.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,12 +7,26 @@ using UnityEngine;
 
 public class EmemyBomDealDame : NetworkBehaviour
 {
-    [SerializeField]
+   
     private int damage = 10;
 
-    [SerializeField]
-    private NetworkObject UIDamege;
 
+
+
+    private void OnEnable()
+    {
+        ChangeDamageEvent.changeDamage += OnChangeDame;
+    }
+
+    private void OnDisable()
+    {
+        ChangeDamageEvent.changeDamage -= OnChangeDame;
+    }
+
+    private void OnChangeDame(int dam)
+    {
+        damage = dam;
+    }
 
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D other) {
@@ -28,7 +43,7 @@ public class EmemyBomDealDame : NetworkBehaviour
 
            
             //ObjectPooling.Singleton.SpawnBom(other.transform.position);
-            ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"-{damage}", Color.red);
+            ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"-{damage} HP", Color.red);
             
 
             if(!IsHost && IsOwner){
@@ -53,6 +68,6 @@ public class EmemyBomDealDame : NetworkBehaviour
     [ClientRpc]
     private void SendInforClientRpc(Vector3 position)
     {
-        ObjectPooling.Singleton.SpawnUIDamdge(position, $"-{damage}", Color.red);
+        ObjectPooling.Singleton.SpawnUIDamdge(position, $"-{damage} HP", Color.red);
     }
 }

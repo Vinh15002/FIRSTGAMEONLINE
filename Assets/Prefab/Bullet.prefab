@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8822826381138802611}
   - component: {fileID: 1499279365147277654}
   - component: {fileID: 4609752160512665175}
-  - component: {fileID: 7405266285517015028}
   - component: {fileID: 1485228208327054535}
+  - component: {fileID: 7405266285517015028}
   - component: {fileID: 7521219562523758664}
   - component: {fileID: 3470860978658102055}
   - component: {fileID: 3534225682754070066}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2513497008
+  GlobalObjectIdHash: 2199769072
   InScenePlacedSourceGlobalObjectIdHash: 2199769072
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -173,6 +173,20 @@ PolygonCollider2D:
       - {x: 0.049999997, y: 0.089999996}
       - {x: -0.0006726794, y: 0.185439}
   m_UseDelaunayMesh: 0
+--- !u!114 &1485228208327054535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5075236565091789036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a9b3a5bc755c5429a118bf2803e122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage:
+    m_InternalValue: 5
 --- !u!114 &7405266285517015028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,22 +202,6 @@ MonoBehaviour:
   Speed:
     m_InternalValue: 13
   direction: {x: 0, y: 0}
---- !u!114 &1485228208327054535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5075236565091789036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1a9b3a5bc755c5429a118bf2803e122, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage:
-    m_InternalValue: 5
-  prefabBom: {fileID: 2660815588972701677, guid: 1262d3266cb39ba4bb1b0fe992861c16, type: 3}
-  UIDamege: {fileID: 9177584881643471236, guid: 9826f5b66905c7143a6fb2f175c5bd5b, type: 3}
 --- !u!95 &7521219562523758664
 Animator:
   serializedVersion: 7

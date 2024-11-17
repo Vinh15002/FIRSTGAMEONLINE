@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4692707650021413837}
   - component: {fileID: 5818575719807955369}
   - component: {fileID: 7246235813767197164}
+  - component: {fileID: 5961057050878563077}
   m_Layer: 6
   m_Name: Slider
   m_TagString: Untagged
@@ -102,6 +103,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396166f8386127e47b9a171ccfae763b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 5818575719807955369}
+--- !u!114 &5961057050878563077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479129344418651944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &3695671562143638789
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,8 +191,9 @@ GameObject:
   - component: {fileID: 4352012752827964457}
   - component: {fileID: 7000313178441438281}
   - component: {fileID: 2538595989436305901}
+  - component: {fileID: 8274670237828443105}
   m_Layer: 6
-  m_Name: Monster01
+  m_Name: M01_1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,13 +367,13 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4352637976657720490}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -347,7 +381,7 @@ Rigidbody2D:
     m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -377,10 +411,10 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -394,12 +428,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.008452177, y: 0}
-  m_Size: {x: 1.2862353, y: 1.975}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.625, y: 1.975}
   m_Direction: 0
 --- !u!114 &4352012752827964457
 MonoBehaviour:
@@ -413,23 +447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bb0973256e6634e995038bb71c8a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 50
-  _maxHealth: 50
-  onDame:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7246235813767197164}
-        m_TargetAssemblyTypeName: UpdateHealthBar, Assembly-CSharp
-        m_MethodName: onChangeHealthBarClientRpc
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onDie:
     m_PersistentCalls:
       m_Calls:
@@ -445,6 +462,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  OnChangebar:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7246235813767197164}
+        m_TargetAssemblyTypeName: UpdateHealthBar, Assembly-CSharp
+        m_MethodName: ChangeHealthBar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7000313178441438281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,8 +489,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473d3832a3fd80749932c8e0f054cb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
   hasTarget: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2538595989436305901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,10 +505,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799294f6188c00d4a8496f51e19ceeed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabBom: {fileID: 0}
-  damage: 5
   spwanBomPosition: {fileID: 0}
-  UIDamage: {fileID: 9177584881643471236, guid: 9826f5b66905c7143a6fb2f175c5bd5b, type: 3}
+--- !u!114 &8274670237828443105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4352637976657720490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48089a1cde79f7349b14b07d62be339d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infor: {fileID: 11400000, guid: c7c6f74efbb06d84ab4124572994e771, type: 2}
 --- !u!1 &4807694327017519525
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,6 +679,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _timeAttack: 0.5
+  typeAttack: 0
   onDealDamage:
     m_PersistentCalls:
       m_Calls:
@@ -910,7 +955,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 14.999998
+  m_Radius: 7
 --- !u!114 &3433818593629659102
 MonoBehaviour:
   m_ObjectHideFlags: 0

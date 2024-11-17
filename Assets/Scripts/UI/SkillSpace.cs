@@ -39,6 +39,7 @@ public class SkillSpace : MonoBehaviour
     private void ChangeUI(float currentCooldownSpace, float cooldownSpace)
     {
         image.fillAmount = currentCooldownSpace/cooldownSpace;
-        text.text = Mathf.Ceil(currentCooldownSpace)+"";
+        float value = Mathf.Ceil(currentCooldownSpace);
+        text.text = value >= 0.1 ? value.ToString() : "";
     }
 }

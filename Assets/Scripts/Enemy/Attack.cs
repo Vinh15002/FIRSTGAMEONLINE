@@ -1,3 +1,4 @@
+using Assets.Scripts.Enemy;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,16 +7,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class Attack : NetworkBehaviour
-{
+{ 
 
-    [SerializeField]
-    private NetworkObject prefabBom;
-
-
-
-    [SerializeField]
-    private int damage;
-
+    
 
     [SerializeField]
     private Transform spwanBomPosition;
@@ -23,14 +17,19 @@ public class Attack : NetworkBehaviour
     private Animator animator;
 
 
-    [SerializeField]
-    private NetworkObject UIDamage;
+    private int damage;
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        damage = GetComponent<Enemy>().Damage;
+
+    }
 
 
-   
 
 
-    
+
 
     private void Awake() {
         animator = GetComponent<Animator>();
@@ -40,7 +39,7 @@ public class Attack : NetworkBehaviour
       
         animator.SetBool("isAttack", true);
         //ObjectPooling.Singleton.SpawnBom(other.transform.position);
-        ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"-{damage}", Color.red);
+        ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"-{damage} HP", Color.red);
         
 
         if(!IsHost && IsOwner){
@@ -56,7 +55,7 @@ public class Attack : NetworkBehaviour
     [ClientRpc]
     private void SendInforClientRpc(Vector3 position)
     {
-        ObjectPooling.Singleton.SpawnUIDamdge(position, $"-{damage}", Color.red);
+        ObjectPooling.Singleton.SpawnUIDamdge(position, $"-{damage} HP", Color.red);
     }
 
     public void OnDealDamageExit(){
@@ -79,7 +78,7 @@ public class Attack : NetworkBehaviour
             Vector2 direction = other.transform.position- transform.position;
             SpawnEnemyBomClientRpc(spwanBomPosition.position, Quaternion.identity, direction );
             if(!IsHost){
-                ObjectPooling.Singleton.SpawnBomEnemy01(spwanBomPosition.position, Quaternion.identity, direction );
+                ObjectPooling.Singleton.SpawnBomEnemy01(spwanBomPosition.position, Quaternion.identity, direction , damage);
             }
         }
            
@@ -95,7 +94,7 @@ public class Attack : NetworkBehaviour
 
     [ClientRpc]
     public void SpawnEnemyBomClientRpc(Vector3 position, Quaternion identity, Vector2 direction){
-       ObjectPooling.Singleton.SpawnBomEnemy01(position, Quaternion.identity, direction );
+       ObjectPooling.Singleton.SpawnBomEnemy01(position, Quaternion.identity, direction, damage);
     }
 
 

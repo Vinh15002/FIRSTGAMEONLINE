@@ -39,7 +39,7 @@ public class TestRelay : MonoBehaviour
 
     public void OnGetJoinCode(string code){
         this.joinCode = code;
-        Debug.Log(this.joinCode);
+        //Debug.Log(this.joinCode);
     }
 
     public async void JoinRelay(){

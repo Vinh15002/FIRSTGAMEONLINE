@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonLobby : MonoBehaviour
 {
@@ -10,10 +11,13 @@ public class ButtonLobby : MonoBehaviour
 
     public async void OnClicked(){
         if(gameObject!=null){
-            
-            await LobbyManager.Instance.JoinLobby(lobbyID);
+            gameObject.SetActive(false);
             await Task.Delay(1000);
-            StartCoroutine(LobbyManager.Instance.LoadingScene());
+          
+            await LobbyManager.Instance.JoinLobby(lobbyID);
+
+            await SceneManager.LoadSceneAsync("Lobby");
+            
         }
       
         

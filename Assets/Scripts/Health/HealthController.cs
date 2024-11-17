@@ -9,14 +9,15 @@ using UnityEngine.Events;
 public class HealthController : NetworkBehaviour
 {
     [SerializeField]
-    public NetworkVariable<int> _currentHealth = new NetworkVariable<int>(90, NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Server);
+    public NetworkVariable<int> _currentHealth = new NetworkVariable<int>(100, NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Server);
 
     [SerializeField]
-    public int _maxHealth = 100;
-    
- 
+    public NetworkVariable<int> _maxHealth = new NetworkVariable<int>(100, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
+
+
     public float PercentOfHealth {
-        get {return (float)_currentHealth.Value/ _maxHealth;}
+        get {return (float)_currentHealth.Value/ _maxHealth.Value;}
         
     }
 
@@ -25,7 +26,12 @@ public class HealthController : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         // Muốn client có thể gửi tín hiệu 
-        if(!IsServer) _currentHealth.OnValueChanged += ChangeHeal;
+        if (!IsServer)
+        {
+            _currentHealth.OnValueChanged += ChangeHeal;
+            _maxHealth.OnValueChanged += ChangeHeal;
+        }
+
     }
 
     public static event System.Action<int, int> getHeal;
@@ -34,9 +40,8 @@ public class HealthController : NetworkBehaviour
     private void ChangeHeal(int previousValue, int newValue)
     {
         if(!IsOwner) return;
-        getHeal?.Invoke(_currentHealth.Value, _maxHealth);
+        getHeal?.Invoke(_currentHealth.Value, _maxHealth.Value);
        
-        Debug.Log($"ID: {OwnerClientId} :  LENGTH: {_currentHealth.Value}");
        
     }
 
@@ -44,12 +49,20 @@ public class HealthController : NetworkBehaviour
     public void GetHeal(int amountHeal){
 
         _currentHealth.Value += amountHeal;
-         _currentHealth.Value = _currentHealth.Value <=_maxHealth ? _currentHealth.Value : _maxHealth;
+         _currentHealth.Value = _currentHealth.Value <=_maxHealth.Value ? _currentHealth.Value : _maxHealth.Value;
 
         if(!IsOwner) return;
       
-        getHeal?.Invoke(_currentHealth.Value, _maxHealth);
+        getHeal?.Invoke(_currentHealth.Value, _maxHealth.Value);
         
+    }
+
+    public void GetMaxHeal(int amountHeal)
+    {
+        _maxHealth.Value += amountHeal;
+        if (!IsOwner) return;
+
+        getHeal?.Invoke(_currentHealth.Value, _maxHealth.Value);
     }
 
 
@@ -60,7 +73,7 @@ public class HealthController : NetworkBehaviour
         if(!IsOwner) return;
         
 
-        getHeal?.Invoke(_currentHealth.Value, _maxHealth);
+        getHeal?.Invoke(_currentHealth.Value, _maxHealth.Value);
         
     }
 

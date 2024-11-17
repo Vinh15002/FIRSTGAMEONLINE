@@ -316,8 +316,9 @@ GameObject:
   - component: {fileID: 7831595569122567354}
   - component: {fileID: 8050873729239906508}
   - component: {fileID: 8686733468310550452}
+  - component: {fileID: 2906513677655721179}
   m_Layer: 6
-  m_Name: Monster04
+  m_Name: M04_1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3240363463
+  GlobalObjectIdHash: 1623594253
   InScenePlacedSourceGlobalObjectIdHash: 1623594253
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -456,18 +457,18 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6589183438775298780}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -499,8 +500,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473d3832a3fd80749932c8e0f054cb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
   hasTarget: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &4811880946795342608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,14 +516,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bb0973256e6634e995038bb71c8a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 100
-  _maxHealth: 100
-  onDame:
+  onDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8288553205038493979}
+        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
+        m_MethodName: onDie
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnChangebar:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3034364575076904648}
         m_TargetAssemblyTypeName: UpdateHealthBar, Assembly-CSharp
-        m_MethodName: onChangeHealthBarClientRpc
+        m_MethodName: ChangeHealthBar
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -530,9 +546,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onDie:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!58 &7831595569122567354
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -546,10 +559,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -603,10 +616,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799294f6188c00d4a8496f51e19ceeed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabBom: {fileID: 495862523508474644, guid: fb529e091df54a140aa038f9bf6e09d5, type: 3}
-  damage: 10
   spwanBomPosition: {fileID: 3242543015328008325}
-  UIDamage: {fileID: 0}
+--- !u!114 &2906513677655721179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6589183438775298780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48089a1cde79f7349b14b07d62be339d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infor: {fileID: 11400000, guid: 7f76242b40f3c074ca6fe275fb9e9b95, type: 2}
 --- !u!1 &6750713039600422463
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396166f8386127e47b9a171ccfae763b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 4886137932173047871}
 --- !u!1 &6883455932559568857
 GameObject:
   m_ObjectHideFlags: 0

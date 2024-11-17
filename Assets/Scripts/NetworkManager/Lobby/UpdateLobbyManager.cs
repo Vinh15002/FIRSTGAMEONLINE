@@ -92,9 +92,13 @@ public class UpdateLobbyManager: SingletonPersistent<UpdateLobbyManager>{
     {   if(loadingScene!=null)
             loadingScene.SetActive(true);
         joinedLobby = await RelayManager.Instance.JoinRelay(relayCode);
-        LobbyManager.loadTheNextScene = true;
-        StartCoroutine(LobbyManager.Instance.LoadingScenceFade());
-        await SceneManager.LoadSceneAsync(LobbyManager.Instance._lobbyData.SenceName);
+        if (joinedLobby != null)
+        {
+            LobbyManager.loadTheNextScene = true;
+            StartCoroutine(LobbyManager.Instance.LoadingScenceFade());
+            await SceneManager.LoadSceneAsync(LobbyManager.Instance._lobbyData.SenceName);
+        }
+       
 
     }
 }

@@ -201,9 +201,8 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
 
             
         }
-       
+        
         LobbySpawner.instance.OnLobbyUpdated(_lobbyPlayerDatas);
-    
         LobbyUI.instance.SetMap(_lobbyData.MapIndex);
         if(count == _lobbyPlayerDatas.Count){
             LobbyUI.instance.SetStartButton(true);
@@ -211,6 +210,8 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
         else {
             LobbyUI.instance.SetStartButton(false);
         }
+    
+        
         
         
     }
@@ -247,7 +248,6 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
             getnextScene = true;
             _lobby = lobby;
             UpdateLobbyRepeated();
-            LobbyHeartbeat(_lobby);
             
         }catch(LobbyServiceException e){
             return false;
@@ -367,9 +367,11 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
 
     
     public void ShowLobby(){
+        if(showLobby!=null){
+            showLobby.SetActive(true);
+            ShowAllLobby();
+        }
         
-        showLobby.SetActive(true);
-        ShowAllLobby();
         
     }
 
@@ -377,7 +379,7 @@ public class LobbyManager : SingletonPersistent<LobbyManager>
 
     private async void ShowAllLobby()
     {
-        while(!getnextScene){
+        while(showLobby!=null){
             QueryResponse queryResponse = await Lobbies.Instance.QueryLobbiesAsync();
             if(lobbyContentParent==null) break;
             foreach (Transform t in lobbyContentParent){

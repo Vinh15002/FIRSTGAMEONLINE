@@ -53,15 +53,15 @@ public class AddHealth : NetworkBehaviour
                 if(NetworkManager.Singleton.IsServer){
                     other.GetComponent<HealthController>().GetHeal(heal);
                    
-                    ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal}", Color.green);
+                    ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal} HP", Color.green);
                     
                 }
-                ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal}", Color.green);
+                ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal} HP", Color.green);
                 if(IsOwner){
                     SendInforClientRpc(other.transform.position);
                 }
                 if(IsHost){
-                    ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal}", Color.green);
+                    ObjectPooling.Singleton.SpawnUIDamdge(other.transform.position, $"+{heal} HP", Color.green);
                 }
                  _timeHeal = 0;
                

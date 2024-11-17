@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9070638007432241410}
-  - component: {fileID: 2378590674121728295}
+  - component: {fileID: 6153094832920027309}
   m_Layer: 8
   m_Name: Offer
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6717213539608257566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2378590674121728295
+--- !u!114 &6153094832920027309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,21 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 1
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 0
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 0
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
-  PositionThreshold: 0.1
+  PositionThreshold: 0.001
   RotAngleThreshold: 0.01
-  ScaleThreshold: 0.3
-  UseQuaternionSynchronization: 1
-  UseQuaternionCompression: 1
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
   UseHalfFloatPrecision: 1
   InLocalSpace: 1
   Interpolate: 1
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6717213539608257566}
   - component: {fileID: 1875179000586530237}
-  - component: {fileID: 8745798504341157337}
+  - component: {fileID: 2518998775776899156}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -151,7 +151,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &8745798504341157337
+--- !u!114 &2518998775776899156
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,10 +160,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2017519108969592623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fc359e9155fd734d8e96b4a4b0e572a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 1
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 0
@@ -176,10 +176,10 @@ MonoBehaviour:
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 1
-  UseQuaternionCompression: 1
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
   UseHalfFloatPrecision: 1
-  InLocalSpace: 1
+  InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 1
 --- !u!1 &3598772512817130514
@@ -200,10 +200,10 @@ GameObject:
   - component: {fileID: -478741848464159154}
   - component: {fileID: 5960598049172998144}
   - component: {fileID: -7499838582324887896}
-  - component: {fileID: 834761670734963573}
-  - component: {fileID: -16736916005254824}
   - component: {fileID: 4891700937853946238}
   - component: {fileID: 6898109758593174808}
+  - component: {fileID: 6382719763922873674}
+  - component: {fileID: 8733344153765551999}
   m_Layer: 8
   m_Name: Tank
   m_TagString: Player
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3269213171
+  GlobalObjectIdHash: 3717795289
   InScenePlacedSourceGlobalObjectIdHash: 3269213171
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -373,6 +373,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1499279365147277654, guid: a0e81b15be09c7c4dbe5254073cc4282, type: 3}
   offset: {fileID: 9070638007432241410}
   timecooldown: 0.5
+  DamageFire: 7
 --- !u!114 &-478741848464159154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentHealth:
-    m_InternalValue: 90
+    m_InternalValue: 100
   _maxHealth: 100
 --- !u!61 &5960598049172998144
 BoxCollider2D:
@@ -446,49 +447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478197872c9547647b4807a91d9afda9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &834761670734963573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3598772512817130514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 1
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 0
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.03
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.09
-  UseQuaternionSynchronization: 1
-  UseQuaternionCompression: 1
-  UseHalfFloatPrecision: 1
-  InLocalSpace: 1
-  Interpolate: 1
-  SlerpPosition: 1
---- !u!114 &-16736916005254824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3598772512817130514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4891700937853946238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,3 +478,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed:
     m_InternalValue: 7
+--- !u!114 &6382719763922873674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598772512817130514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc359e9155fd734d8e96b4a4b0e572a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 0
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 1
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 1
+--- !u!114 &8733344153765551999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598772512817130514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -19,8 +19,6 @@ public class SkillPlayer01 : NetworkBehaviour
     [SerializeField]
     private float time_Dash = 2f;
 
-    private float speedOrigin;
-
 
     [SerializeField]
     
@@ -37,7 +35,6 @@ public class SkillPlayer01 : NetworkBehaviour
     private NetworkObject prefabBom;
 
     private void Awake() {
-        speedOrigin = GetComponent<PlayerController>().speed.Value;
         _cooldownSkillE.OnValueChanged += ChangeValue;
         _cooldownSkillSpace.OnValueChanged += ChangeValueSpace;
     }
@@ -74,25 +71,27 @@ public class SkillPlayer01 : NetworkBehaviour
                 Vector3 position = transform.GetChild(0).transform.GetChild(0).transform.position;
                 Quaternion rotation = transform.GetChild(0).transform.rotation;
                 Vector2 direction = transform.GetChild(0).transform.up;
-                FireServerRpc(position, rotation, direction);
-                _cooldownSkillSpace.Value = cooldownSpace;
+                int damageOrigin = GetComponent<Fire>().DamageFire.Value;
+                FireServerRpc(position, rotation, direction, damageOrigin);
+               
             }
         }
     }
 
 
     [ClientRpc]
-    private void FireClientRpc(Vector3 position, Quaternion rotation, Vector3 direction)
+    private void FireClientRpc(Vector3 position, Quaternion rotation, Vector3 direction, int damageOrigin)
     {
-        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,2);
+        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,2, damageOrigin*5);
+        _cooldownSkillSpace.Value = cooldownSpace;
     }
 
     [ServerRpc]
-    private void FireServerRpc(Vector3 position, Quaternion rotation, Vector3 direction)
+    private void FireServerRpc(Vector3 position, Quaternion rotation, Vector3 direction, int damageOrigin)
     {
         
-        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,2);
-        FireClientRpc(position,rotation, direction);
+        ObjectPooling.Singleton.SpawnBullet(position,rotation, direction,2, damageOrigin*5);
+        FireClientRpc(position,rotation, direction,damageOrigin);
         
     }
 
@@ -113,9 +112,9 @@ public class SkillPlayer01 : NetworkBehaviour
 
     public IEnumerator DashTime(){
 
-        GetComponent<PlayerController>().speed.Value = speedOrigin + speedAdd;
+        GetComponent<PlayerController>().speed.Value +=   speedAdd;
         yield return new WaitForSeconds(time_Dash);
-        GetComponent<PlayerController>().speed.Value = speedOrigin;
+        GetComponent<PlayerController>().speed.Value -= speedAdd;
         _cooldownSkillE.Value = cooldownSkillE;
     }
 

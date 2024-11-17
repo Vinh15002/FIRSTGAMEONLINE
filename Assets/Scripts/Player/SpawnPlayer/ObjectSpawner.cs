@@ -1,5 +1,7 @@
 
 
+using Assets.Scripts.Collector;
+using System;
 using System.Collections.Generic;
 
 using Unity.Netcode;
@@ -20,6 +22,7 @@ public class ObjectSpawner : ScriptableObject{
 
 
     public void Instantiate(){
+        currentIndex = 0;
         listObject.Clear();
         for(int i = 0 ;  i < amount ; i++){
             NetworkObject game = Instantiate(prefab, Vector3.zero, Quaternion.identity);
@@ -28,9 +31,11 @@ public class ObjectSpawner : ScriptableObject{
         }
     }
 
-    public void spawnObject(Vector3 position, Quaternion quaternion, Vector2 direction){
-        listObject[currentIndex++].GetComponent<BulletMovement>().SetActive(position, quaternion, direction);
-        if(currentIndex == amount){
+    public void spawnObject(Vector3 position, Quaternion quaternion, Vector2 direction, int Damage){
+
+        listObject[currentIndex++].GetComponent<BulletMovement>().SetActive(position, quaternion, direction, Damage);
+       
+        if (currentIndex == amount){
             currentIndex = 0;
         }
     }
@@ -49,4 +54,12 @@ public class ObjectSpawner : ScriptableObject{
         }
     }
 
+    public void spawnItem(Vector3 position)
+    {
+        listObject[currentIndex++].GetComponent<Collector>().SetActive(position);
+        if (currentIndex == amount)
+        {
+            currentIndex = 0;
+        }
+    }
 }

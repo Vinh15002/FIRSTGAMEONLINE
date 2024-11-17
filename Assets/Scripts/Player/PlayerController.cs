@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 
 public class PlayerController : NetworkBehaviour
@@ -58,9 +59,10 @@ public class PlayerController : NetworkBehaviour
     // }
 
     private void HandleMoveInput(){
-        _rigibody.velocity = moveInput*speed.Value;
+        _rigibody.velocity = moveInput * speed.Value;
         HandleMoveInputServerRpc(moveInput);
         
+
     }
 
     [ServerRpc]
@@ -68,9 +70,18 @@ public class PlayerController : NetworkBehaviour
     {
         
         _rigibody.velocity = moveInput*speed.Value;
-        
+        SendInforClientRpc();
     }
-    
+
+    [ClientRpc]
+    private void SendInforClientRpc()
+    {
+        _rigibody.velocity = moveInput * speed.Value;
+       
+    }
+
+
+
 
     private void onMoveNetwork(){
         float x = Input.GetAxis("Horizontal");
@@ -87,6 +98,7 @@ public class PlayerController : NetworkBehaviour
             _rigibody.MoveRotation(rotate);
             HandleDirectionServerRpc(rotate);
             
+
         }
 
     }
@@ -94,9 +106,13 @@ public class PlayerController : NetworkBehaviour
     private void HandleDirectionServerRpc(Quaternion rotate)
     {
         _rigibody.MoveRotation(rotate);
+
+        SendInforClientRpc(rotate);
     }
 
-
-
-
+    [ClientRpc]
+    private void SendInforClientRpc(Quaternion rotate)
+    {
+        _rigibody.MoveRotation(rotate);
+    }
 }

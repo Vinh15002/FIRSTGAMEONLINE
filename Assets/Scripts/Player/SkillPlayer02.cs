@@ -1,3 +1,4 @@
+using Assets.Scripts.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,9 +24,9 @@ public class SkillPlayer02 : NetworkBehaviour
     [SerializeField]
     private float cooldownSpace = 1f;
 
-    private NetworkVariable<float> _cooldownSkillSpace = new NetworkVariable<float>(5f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    private NetworkVariable<float> _cooldownSkillSpace = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
-    private NetworkVariable<float> _cooldownSkillE = new NetworkVariable<float>(10f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    private NetworkVariable<float> _cooldownSkillE = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
 
      private void Awake() {
@@ -38,7 +39,11 @@ public class SkillPlayer02 : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        SkillEnvent.changeBackGroundSkill?.Invoke(2);
+        if (IsOwner)
+        {
+            SkillEnvent.changeBackGroundSkill?.Invoke(2);
+        }
+        
     }
 
     private void ChangeValueSpace(float previousValue, float newValue)
@@ -87,9 +92,18 @@ public class SkillPlayer02 : NetworkBehaviour
     private void SpwanSkillSpcaeServerRpc(Vector3 positionSpwan)
     {
         NetworkObject game =  Instantiate(SkillSpace, positionSpwan, Quaternion.identity);
+        ChangeDamageEvent.changeDamgeBullet?.Invoke(GetComponent<Fire>().DamageFire.Value);
         game.Spawn();
+        
+        //SpawnSkillSpaceClientRpc(game);
         _cooldownSkillSpace.Value = cooldownSpace;
     }
+
+    //[ClientRpc]
+    //private void SpawnSkillSpaceClientRpc(NetworkObject game)
+    //{
+    //    game.GetComponent<DestroyObjectTower>().damage = GetComponent<Fire>().DamageFire.Value;
+    //}
 
     private void Skill01()
     {

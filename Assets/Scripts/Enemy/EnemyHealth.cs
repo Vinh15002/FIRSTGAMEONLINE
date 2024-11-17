@@ -1,80 +1,115 @@
+using Assets.Scripts.Enemy;
+using Assets.Scripts.Enemy.EnemySpawn;
+using Assets.Scripts.Events;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : NetworkBehaviour
 {
 
 
 
-    [SerializeField]
-    private int _currentHealth ;
-    [SerializeField]
-    private int _maxHealth;
+
+  
 
     private Animator animator;
+    private int currentHealth;
+    private int maxHealth;
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        currentHealth = GetComponent<Enemy>().CurrentHealth;
+        maxHealth = GetComponent<Enemy>().MaxHealth;
+        animator = GetComponent<Animator>();
 
-    private float PresentOfHealth{
-        get {return (float)_currentHealth/_maxHealth;}
     }
 
+    public void OnEnable()
+    {
+       
+        
+    }
+
+   
+   
+
+
+    
     private bool IsDying{
-        get{return _currentHealth<=1;}
+        get{return currentHealth <= 1;}
     }
 
-    public UnityEvent<float> onDame;
     public UnityEvent onDie;
+    public UnityEvent<int,int> OnChangebar;
 
     [ContextMenu("TAKEDAME")]
     public void TakeDame(int damage){
         if(IsDying) return;
-        
-        
-        
-        _currentHealth -= damage;
-        onDame.Invoke(PresentOfHealth);
+       
 
 
 
-        if(_currentHealth<=1){
-            
-            onDieEmenyServerRpc();
+        GetComponent<Enemy>().CurrentHealth -= damage;
+        currentHealth -= damage;
+
+        OnChangebar?.Invoke(currentHealth, maxHealth);
+        //ChangeHealthBarEnemy.changeHealth?.Invoke(PresentOfHealth);
+
+        //onHitClientRpc();
+
+
+
+
+        if (currentHealth <= 1)
+        {
+            onDieEmeny();
+            //onHitEmenyServerRpc();
         }
         else {
-            onHitEmenyServerRpc();
-            
-            
+            animator.SetTrigger("isHit");
+
         }
 
-    }
-    [ServerRpc]
-    private void onHitEmenyServerRpc()
-    {
-        animator.SetTrigger("isHit");
+    
+  
     }
 
-    
-    [ServerRpc]
-    public void onDieEmenyServerRpc(){
+
+    public void onDieEmeny(){
         
+      
         animator.SetTrigger("isDying");
-        
-        
+        DropItem.dropItemRate?.Invoke(100, transform.position);
+
         StartCoroutine(DestroyObject());
        
     }
 
     public IEnumerator DestroyObject(){
-        yield return new WaitForSeconds(0.7f);
         onDie.Invoke();
-        GetComponent<NetworkObject>().Despawn();
+        yield return new WaitForSeconds(0.7f);
+        NetworkObject.Despawn();
+        //SetDestroy();
+        //SendTheServerRpc();
+       
     }
 
+    //[ServerRpc]
+    //private void SendTheServerRpc()
+    //{
+    //    SendTheClientRpc();
+       
+    //}
 
+    //[ClientRpc]
+    //private void SendTheClientRpc()
+    //{
+    //    SetDestroy();
+    //}
 
     private void Awake() {
         animator = GetComponent<Animator>();

@@ -1,18 +1,16 @@
+using Assets.Scripts.Collector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class CollectorHeal : NetworkBehaviour
+public class CollectorHeal : Collector
 {
 
     [SerializeField]
     private int amountHeal;
 
-    [SerializeField]
-
-    private NetworkObject UIHeal;
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(!other.CompareTag("Player")) return;
@@ -20,19 +18,22 @@ public class CollectorHeal : NetworkBehaviour
             
 
             other.GetComponent<HealthController>().GetHeal(amountHeal);
+           
         }
 
-        ObjectPooling.Singleton.SpawnUIDamdge(transform.position, $"+{amountHeal}", Color.green);
+        ObjectPooling.Singleton.SpawnUIDamdge(transform.position, $"+{amountHeal} HP", Color.green);
         if(!IsHost && IsOwner){
             SendInforClientRpc(transform.position);
         }
+        SetDestroy();
 
     }
 
     [ClientRpc]
     private void SendInforClientRpc(Vector3 position)
     {
-        ObjectPooling.Singleton.SpawnUIDamdge(position, $"+{amountHeal}", Color.green);
+        ObjectPooling.Singleton.SpawnUIDamdge(position, $"+{amountHeal} HP", Color.green);
+        SetDestroy();
     }
 
 

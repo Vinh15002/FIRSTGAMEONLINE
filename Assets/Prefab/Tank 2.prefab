@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1454389170504305632}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 1.02, z: 0}
+  m_LocalPosition: {x: -0.01, y: 1.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 1
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 0
@@ -54,13 +54,13 @@ MonoBehaviour:
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
-  PositionThreshold: 0.1
+  PositionThreshold: 0.001
   RotAngleThreshold: 0.01
-  ScaleThreshold: 0.3
-  UseQuaternionSynchronization: 1
-  UseQuaternionCompression: 1
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
   UseHalfFloatPrecision: 1
-  InLocalSpace: 1
+  InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 1
 --- !u!1 &2017519108969592623
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6717213539608257566}
   - component: {fileID: 1875179000586530237}
-  - component: {fileID: 8745798504341157337}
+  - component: {fileID: 7701503041938272035}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -151,7 +151,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &8745798504341157337
+--- !u!114 &7701503041938272035
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,10 +160,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2017519108969592623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fc359e9155fd734d8e96b4a4b0e572a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 1
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 0
@@ -176,10 +176,10 @@ MonoBehaviour:
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 1
-  UseQuaternionCompression: 1
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
   UseHalfFloatPrecision: 1
-  InLocalSpace: 1
+  InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 1
 --- !u!1 &3598772512817130514
@@ -200,10 +200,10 @@ GameObject:
   - component: {fileID: -478741848464159154}
   - component: {fileID: 5960598049172998144}
   - component: {fileID: -7499838582324887896}
-  - component: {fileID: 834761670734963573}
-  - component: {fileID: -16736916005254824}
   - component: {fileID: 6898109758593174808}
   - component: {fileID: 6936884487293953790}
+  - component: {fileID: 8902993574177643053}
+  - component: {fileID: 7856744784618121555}
   m_Layer: 8
   m_Name: Tank 2
   m_TagString: Player
@@ -220,7 +220,7 @@ Transform:
   m_GameObject: {fileID: 3598772512817130514}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -373,6 +373,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1499279365147277654, guid: 67fa85344cde29a4ab6ea84ce6dde01d, type: 3}
   offset: {fileID: 9070638007432241410}
   timecooldown: 0.5
+  DamageFire:
+    m_InternalValue: 7
 --- !u!114 &-478741848464159154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentHealth:
     m_InternalValue: 120
-  _maxHealth: 120
+  _maxHealth:
+    m_InternalValue: 100
 --- !u!61 &5960598049172998144
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -446,49 +449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478197872c9547647b4807a91d9afda9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &834761670734963573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3598772512817130514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 1
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 0
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.03
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.09
-  UseQuaternionSynchronization: 1
-  UseQuaternionCompression: 1
-  UseHalfFloatPrecision: 1
-  InLocalSpace: 1
-  Interpolate: 1
-  SlerpPosition: 1
---- !u!114 &-16736916005254824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3598772512817130514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6898109758593174808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,3 +479,46 @@ MonoBehaviour:
   SkillSpace: {fileID: 7464784088408016383, guid: e7b42da2559c31a419df7707d11fc541, type: 3}
   cooldownSkillE: 10
   cooldownSpace: 2
+--- !u!114 &8902993574177643053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598772512817130514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc359e9155fd734d8e96b4a4b0e572a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 0
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 1
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 1
+--- !u!114 &7856744784618121555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598772512817130514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -41,6 +41,7 @@ public class SKillE : MonoBehaviour
     private void ChangeUI(float currentCooldownE, float cooldownE)
     {
         image.fillAmount = currentCooldownE/cooldownE;
-        text.text = Mathf.Ceil(currentCooldownE)+"";
+        float value = Mathf.Ceil(currentCooldownE);
+        text.text = value >= 0.1 ? value.ToString() : "";
     }
 }
