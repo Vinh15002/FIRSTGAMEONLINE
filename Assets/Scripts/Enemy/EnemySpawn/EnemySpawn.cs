@@ -42,7 +42,7 @@ namespace EnemySpawn
         {
             if (_timeToSpawn <= 0)
             {
-                int type = Random.Range(0, ListPrefab.Count - 1);
+                int type = Random.Range(0, ListPrefab.Count);
                 NetworkObject obj = Instantiate(ListPrefab[type], transform.position, Quaternion.identity);
                 obj.GetComponent<NetworkObject>().Spawn();
                 _timeToSpawn = timeToSpawn;
