@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      craiyon_163424_background_image_of_magical_glowin_arcane_runes__geometric_shapes_and_fractals__cryom_0: -5538634676970156073
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
